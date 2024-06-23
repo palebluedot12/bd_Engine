@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="GameManager.h" />
   </ItemGroup>
   <ItemGroup>
