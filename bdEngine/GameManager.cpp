@@ -47,6 +47,17 @@ void GameManager::LateUpdate()
 
 void GameManager::Render()
 {
+    // clearRenderTarget
+    // Time::Render
+    // SceneManager::Render => ActiveScene찾아서 Render
+    // 여기까지만!--------------------------------------
+    // 
+    // 내부적으로는 -------------------------------------
+    // Scene::Render
+    // Layer 루프돌며 Render
+    // GameObj들 돌며..
+    // Component들 돌며...
+
     if (!pRenderTarget)
         CreateDeviceResources();
 

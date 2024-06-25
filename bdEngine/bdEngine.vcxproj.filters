@@ -3,8 +3,12 @@
   <ItemGroup>
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InputManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="InputManager.cpp" />
   </ItemGroup>
 </Project>
