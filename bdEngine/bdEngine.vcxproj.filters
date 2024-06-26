@@ -5,10 +5,12 @@
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="RenderManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
   </ItemGroup>
 </Project>

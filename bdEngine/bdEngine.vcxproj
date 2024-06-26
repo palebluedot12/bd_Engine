@@ -135,11 +135,13 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="RenderManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

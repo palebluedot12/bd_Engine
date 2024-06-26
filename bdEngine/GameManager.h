@@ -1,6 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
-#include <d2d1.h>
+#include "GameObject.h"
 
 class GameManager
 {
@@ -14,13 +14,15 @@ public:
 	void Render();
 
 private:
-	HWND mHwnd;
+	HWND m_Hwnd;
 	//HDC mHdc;
-	ID2D1Factory* pFactory;
-	ID2D1HwndRenderTarget* pRenderTarget;
-	ID2D1SolidColorBrush* pBrush;
+	//ID2D1Factory* pFactory;
+	//ID2D1HwndRenderTarget* pRenderTarget;
+	//ID2D1SolidColorBrush* pBrush;
 
-	float mSpeed;
+	float m_Speed;
+
+	GameObject m_Player; // Object는 Scene에서 들고 있는게..??
 
 	void CreateDeviceResources();
 	void DiscardDeviceResources();

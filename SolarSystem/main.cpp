@@ -4,8 +4,6 @@
 
 //#pragma comment (lib, "..\\x64\\Debug\\bdEngine.lib")
 
-// 커밋테스트용
-
 #define MAX_LOADSTRING 100
 
 GameManager application;

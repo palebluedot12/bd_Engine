@@ -1,5 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
+#include <d2d1.h>
 
 class GameObject
 {
@@ -23,6 +24,12 @@ public:
 private:
 	float mX;
 	float mY;
+
+	//ID2D1Factory* pFactory;
+	//ID2D1HwndRenderTarget* pRenderTarget;
+	//ID2D1SolidColorBrush* pBrush;
+	//void CreateDeviceResources();
+	//void DiscardDeviceResources();
 
 };
 
