@@ -19,6 +19,7 @@ GameManager::~GameManager()
 // DC 대신 D2D 메소드들로 대체
 void GameManager::Initialize(HWND hwnd)
 {
+    RenderManager::Get()->Initialize(hwnd);
     Input::Initailize();
 }
 
@@ -33,7 +34,7 @@ void GameManager::Update()
 {
     Input::Update();
 
-    //mSpeed += 1.0f;
+    mSpeed += 1.0f;
 }
 
 void GameManager::LateUpdate()
@@ -52,6 +53,8 @@ void GameManager::Render()
     // Layer 루프돌며 Render
     // GameObj들 돌며..
     // Component들 돌며...
-    RenderManager::Render();
+
+    // 싱글톤으로 만드러야할듯
+    RenderManager::Get()->Render();
 
 }

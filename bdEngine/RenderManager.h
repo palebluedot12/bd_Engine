@@ -6,10 +6,17 @@
 class RenderManager
 {
 public:
+	static RenderManager* Get()
+	{
+		static RenderManager renderer;
+		return &renderer;
+	}
+public:
 	RenderManager();
 	~RenderManager();
 	void Initialize(HWND hwnd);
 	void Render();
+
 private:
 	HWND m_Hwnd;
 	ID2D1Factory* pFactory;
