@@ -3,6 +3,7 @@
 #include "GameObject.h"
 
 // 싱글톤으로 바꾸기
+// D2DRenderer 이름바꾸기
 class RenderManager
 {
 public:
