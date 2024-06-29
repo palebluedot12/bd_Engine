@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "InputManager.h"
 #include "RenderManager.h"
+#include "Time.h"
 #include <d2d1.h>
 
 #pragma comment(lib, "d2d1")
@@ -19,7 +20,9 @@ GameManager::~GameManager()
 // DC 대신 D2D 메소드들로 대체
 void GameManager::Initialize(HWND hwnd)
 {
+    RenderManager::Get()->Initialize(hwnd);
     Input::Initailize();
+    Time::Initailize();
 }
 
 void GameManager::Run()
@@ -32,6 +35,7 @@ void GameManager::Run()
 void GameManager::Update()
 {
     Input::Update();
+    Time::Update();
 
     //mSpeed += 1.0f;
 }
@@ -52,6 +56,8 @@ void GameManager::Render()
     // Layer 루프돌며 Render
     // GameObj들 돌며..
     // Component들 돌며...
-    RenderManager::Render();
+
+    // 싱글톤으로 만드러야할듯
+    RenderManager::Get()->Render();
 
 }

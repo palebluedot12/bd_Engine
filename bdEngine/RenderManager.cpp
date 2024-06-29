@@ -1,4 +1,5 @@
 #include "RenderManager.h"
+#include <iostream>
 
 RenderManager::RenderManager()
 {
@@ -14,7 +15,11 @@ void RenderManager::Initialize(HWND hwnd)
 {
 	m_Hwnd = hwnd;
 	//mHdc = GetDC(hwnd);
-	D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory);
+	HRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory);
+	if (FAILED(hr)) {
+		std::cerr << "Failed to create D2D factory. HRESULT: " << hr << std::endl;
+		return;
+	}
 	CreateDeviceResources();
 
 	m_Player.SetPosition(0, 0);
@@ -22,7 +27,6 @@ void RenderManager::Initialize(HWND hwnd)
 
 void RenderManager::Render()
 {
-
 	if (!pRenderTarget)
 		CreateDeviceResources();
 
@@ -31,7 +35,7 @@ void RenderManager::Render()
 
 	pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Blue), &pBrush);
 
-	D2D1_RECT_F rectangle = D2D1::RectF(100.0f + m_Player.GetPositionX(), 100.0f, 200.0f + m_Player.GetPositionY(), 200.0f);
+	D2D1_RECT_F rectangle = D2D1::RectF(100.0f, 100.0f, 200.0f, 200.0f);
 	pRenderTarget->FillRectangle(&rectangle, pBrush);
 
 	pBrush->Release();

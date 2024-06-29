@@ -1,5 +1,5 @@
 ﻿#include "framework.h"
-#include "SolarSystem.h"
+#include "Client.h"
 #include "..\\bdEngine\\GameManager.h"
 
 //#pragma comment (lib, "..\\x64\\Debug\\bdEngine.lib")

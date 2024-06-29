@@ -6,11 +6,19 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="Time.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Entity.cpp" />
   </ItemGroup>
 </Project>
