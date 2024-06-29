@@ -43,7 +43,6 @@ void RenderManager::Render()
 	}
 }
 
-
 void RenderManager::CreateDeviceResources()
 {
 	if (!pRenderTarget)
