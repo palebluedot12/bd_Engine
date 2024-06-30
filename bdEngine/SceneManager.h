@@ -11,19 +11,24 @@ public:
 		scene->SetName(name);
 		scene->Initialize();
 
-		mScene.insert(std::make_pair(name, scene));
+		m_Scene.insert(std::make_pair(name, scene));
 
 		return scene;
 	}
 	static Scene* LoadScene(const std::wstring& name)
 	{
-		std::map<std::wstring, Scene*>::iterator iter
-			= mScene.find(name);
+		if (m_ActiveScene)
+			m_ActiveScene->OnExit();
 
-		if (iter == mScene.end())
+		// 없으면 end 반환함
+		std::map<std::wstring, Scene*>::iterator iter
+			= m_Scene.find(name);
+
+		if (iter == m_Scene.end())
 			return nullptr;
 
-		mActiveScene = iter->second;
+		m_ActiveScene = iter->second;
+		m_ActiveScene->OnEnter();
 
 		return iter->second;
 	}
@@ -31,10 +36,9 @@ public:
 	static void Initialize();
 	static void Update();
 	static void LateUpdate();
-	static void Render(HDC hdc);
+	static void Render();
 
 private:
-	//static std::vector<Scene*> mScene;
-	static std::map<std::wstring, Scene*> mScene;
-	static Scene* mActiveScene;
+	static std::map<std::wstring, Scene*> m_Scene;
+	static Scene* m_ActiveScene;
 };

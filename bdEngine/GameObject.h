@@ -1,6 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
-#include <d2d1.h>
+#include "Component.h"
 
 class GameObject
 {
@@ -8,28 +8,36 @@ public:
 	GameObject();
 	~GameObject();
 
-	void Update();
-	void LateUpdate();
-	void Render();
+	virtual void Initialize();
+	virtual void Update();
+	virtual void LateUpdate();
+	virtual void Render();
 
-	void SetPosition(float x, float y)
+	template <typename T>
+	T* AddComponent()
 	{
-		mX = x;
-		mY = y;
+		T* comp = new T();
+		comp->Initialize();
+		comp->SetOwner(this);
+		mComponents.push_back(comp);
+
+		return comp;
 	}
 
-	float GetPositionX() { return mX; }
-	float GetPositionY() { return mY; }
+	template <typename T>
+	T* GetComponent()
+	{
+		T* component = nullptr;
+		for (Component* comp : mComponents)
+		{
+			component = dynamic_cast<T*>(comp);
+			if (component)
+				break;
+		}
+
+		return component;
+	}
 
 private:
-	float mX;
-	float mY;
-
-	//ID2D1Factory* pFactory;
-	//ID2D1HwndRenderTarget* pRenderTarget;
-	//ID2D1SolidColorBrush* pBrush;
-	//void CreateDeviceResources();
-	//void DiscardDeviceResources();
-
+	std::vector<Component*> mComponents;
 };
-

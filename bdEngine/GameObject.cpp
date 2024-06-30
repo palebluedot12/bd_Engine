@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "InputManager.h"
+#include "Time.h"
 
 GameObject::GameObject()
 {
@@ -7,34 +8,44 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
+	for (Component* comp : mComponents)
+	{
+		delete comp;
+		comp = nullptr;
+	}
 }
+
+void GameObject::Initialize()
+{
+	for (Component* comp : mComponents)
+	{
+		comp->Initialize();
+	}
+}
+
 
 void GameObject::Update()
 {
-	if (Input::GetKey(eKeyCode::A))
+	for (Component* comp : mComponents)
 	{
-		mX -= 0.01f;
-	}
-	if (Input::GetKey(eKeyCode::D))
-	{
-		mX += 0.01f;
-	}
-	if (Input::GetKey(eKeyCode::W))
-	{
-		mY -= 0.01f;
-	}
-	if (Input::GetKey(eKeyCode::S))
-	{
-		mX += 0.01f;
+		comp->Update();
 	}
 }
 
 void GameObject::LateUpdate()
 {
+	for (Component* comp : mComponents)
+	{
+		comp->LateUpdate();
+	}
 }
 
 void GameObject::Render()
 {
-	
+	for (Component* comp : mComponents)
+	{
+		comp->Render();
+	}
+
 
 }

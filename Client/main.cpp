@@ -1,6 +1,8 @@
 ﻿#include "framework.h"
 #include "Client.h"
 #include "..\\bdEngine\\GameManager.h"
+#include "LoadScenes.h"
+#include "..\\bdEngine\\CommonInclude.h"
 
 //#pragma comment (lib, "..\\x64\\Debug\\bdEngine.lib")
 
@@ -102,6 +104,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+
+   LoadScenes();
 
    return TRUE;
 }

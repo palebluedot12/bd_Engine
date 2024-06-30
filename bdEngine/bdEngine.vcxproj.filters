@@ -2,23 +2,60 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="GameManager.h" />
-    <ClInclude Include="CommonInclude.h" />
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="CommonInclude.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="Math.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Entity.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="Math.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{2f88bf37-3c86-4e22-a2e2-80ba8e525454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{3f1de080-b29f-4a67-acad-33e8fd8cc733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{1d2e0f36-dce9-4cda-a1cf-9f43526a7b9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

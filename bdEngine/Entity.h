@@ -8,8 +8,8 @@ public:
 	Entity();
 	virtual ~Entity();
 
-	void SetName(const std::wstring& name) { mName = name; }
-	std::wstring& GetName() { return mName; }
+	void SetName(const std::wstring& name) { m_Name = name; }
+	std::wstring& GetName() { return m_Name; }
 
 private:
 	std::wstring m_Name;

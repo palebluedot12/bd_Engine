@@ -24,12 +24,22 @@ void Scene::LateUpdate()
 		gameObj->LateUpdate();
 	}
 }
-void Scene::Render(HDC hdc)
+void Scene::Render()
 {
 	for (GameObject* gameObj : mGameObjects)
 	{
-		gameObj->Render(hdc);
+		gameObj->Render();
 	}
+}
+
+void Scene::OnEnter()
+{
+
+}
+
+void Scene::OnExit()
+{
+
 }
 
 void Scene::AddGameObject(GameObject* gameObject)

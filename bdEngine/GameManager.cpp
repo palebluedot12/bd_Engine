@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "InputManager.h"
 #include "RenderManager.h"
+#include "SceneManager.h"
 #include "Time.h"
 #include <d2d1.h>
 
@@ -23,6 +24,7 @@ void GameManager::Initialize(HWND hwnd)
     RenderManager::Get()->Initialize(hwnd);
     Input::Initailize();
     Time::Initailize();
+    SceneManager::Initialize();
 }
 
 void GameManager::Run()
@@ -36,6 +38,7 @@ void GameManager::Update()
 {
     Input::Update();
     Time::Update();
+    SceneManager::Update();
 
     //mSpeed += 1.0f;
 }
@@ -59,5 +62,6 @@ void GameManager::Render()
 
     // ½Ì±ÛÅæÀ¸·Î ¸¸µå·¯¾ßÇÒµí
     RenderManager::Get()->Render();
+    SceneManager::Render();
 
 }

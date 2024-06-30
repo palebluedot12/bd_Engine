@@ -22,7 +22,6 @@ void RenderManager::Initialize(HWND hwnd)
 	}
 	CreateDeviceResources();
 
-	m_Player.SetPosition(0, 0);
 }
 
 void RenderManager::Render()
