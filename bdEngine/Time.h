@@ -6,7 +6,7 @@ class Time
 public:
 	static void Initailize();
 	static void Update();
-	static void Render(HDC hdc);
+	static void Render(ID2D1RenderTarget* pRenderTarget);
 
 	static float DeltaTime() { return DeltaTimeValue; }
 

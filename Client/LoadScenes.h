@@ -11,5 +11,5 @@ void LoadScenes()
 	//SceneManager::CreateScene<EndScene>(L"EndScene");
 	//SceneManager::CreateScene<TitleScene>(L"TitleScene");
 
-	SceneManager::LoadScene(L"TitleScene");
+	SceneManager::LoadScene(L"PlayScene");
 }

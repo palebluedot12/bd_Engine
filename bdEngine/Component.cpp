@@ -20,6 +20,6 @@ void Component::LateUpdate()
 {
 }
 
-void Component::Render()
+void Component::Render(ID2D1RenderTarget* pRenderTarget)
 {
 }

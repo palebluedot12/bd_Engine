@@ -26,7 +26,7 @@ void Player::LateUpdate()
 	}
 }
 
-void Player::Render()
+void Player::Render(ID2D1RenderTarget* pRenderTarget)
 {
-	GameObject::Render();
+	GameObject::Render(pRenderTarget);
 }

@@ -13,6 +13,7 @@ public:
 	void Render();
 
 private:
+	ID2D1RenderTarget* pRenderTarget;
 	
 	float m_Speed;
 };

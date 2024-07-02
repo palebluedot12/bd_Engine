@@ -51,8 +51,8 @@ void GameManager::Render()
 {
     // clearRenderTarget
     // Time::Render
-    // SceneManager::Render => ActiveScene찾아서 Render
-    // 여기까지만!--------------------------------------
+    // SceneManager::Render (ActiveScene찾아서 Render)
+    // 여기엔 얘네까지만!--------------------------------------
     // 
     // 내부적으로는 -------------------------------------
     // Scene::Render
@@ -60,8 +60,12 @@ void GameManager::Render()
     // GameObj들 돌며..
     // Component들 돌며...
 
-    // 싱글톤으로 만드러야할듯
-    RenderManager::Get()->Render();
-    SceneManager::Render();
+    RenderManager::Get()->GetRenderTarget()->BeginDraw();
+    RenderManager::Get()->GetRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::Black));
+
+    Time::Render(pRenderTarget);
+    SceneManager::Render(pRenderTarget);
+
+    RenderManager::Get()->GetRenderTarget()->EndDraw();
 
 }

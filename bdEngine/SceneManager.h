@@ -36,7 +36,7 @@ public:
 	static void Initialize();
 	static void Update();
 	static void LateUpdate();
-	static void Render();
+	static void Render(ID2D1RenderTarget* pRenderTarget);
 
 private:
 	static std::map<std::wstring, Scene*> m_Scene;

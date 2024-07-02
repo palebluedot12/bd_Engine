@@ -17,7 +17,7 @@ void SceneManager::LateUpdate()
 	m_ActiveScene->LateUpdate();
 }
 
-void SceneManager::Render()
+void SceneManager::Render(ID2D1RenderTarget* pRenderTarget)
 {
-	m_ActiveScene->Render();
+	m_ActiveScene->Render(pRenderTarget);
 }

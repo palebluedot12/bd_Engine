@@ -26,24 +26,6 @@ void RenderManager::Initialize(HWND hwnd)
 
 void RenderManager::Render()
 {
-	if (!pRenderTarget)
-		CreateDeviceResources();
-
-	pRenderTarget->BeginDraw();
-	pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
-
-	pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Blue), &pBrush);
-
-	D2D1_RECT_F rectangle = D2D1::RectF(100.0f, 100.0f, 200.0f, 200.0f);
-	pRenderTarget->FillRectangle(&rectangle, pBrush);
-
-	pBrush->Release();
-
-	HRESULT hr = pRenderTarget->EndDraw();
-	if (hr == D2DERR_RECREATE_TARGET)
-	{
-		DiscardDeviceResources();
-	}
 }
 
 void RenderManager::CreateDeviceResources()

@@ -20,6 +20,6 @@ void Transform::LateUpdate()
 {
 }
 
-void Transform::Render()
+void Transform::Render(ID2D1RenderTarget* pRenderTarget)
 {
 }

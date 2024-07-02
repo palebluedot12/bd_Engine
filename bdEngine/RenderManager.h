@@ -3,7 +3,7 @@
 #include "GameObject.h"
 
 // 싱글톤으로 바꾸기
-// D2DRenderer 이름바꾸기
+// D2DRenderer
 class RenderManager
 {
 public:
@@ -17,6 +17,8 @@ public:
 	~RenderManager();
 	void Initialize(HWND hwnd);
 	void Render();
+	ID2D1HwndRenderTarget* GetRenderTarget() { return pRenderTarget; }
+
 
 private:
 	HWND m_Hwnd;

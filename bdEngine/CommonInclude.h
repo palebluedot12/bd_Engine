@@ -6,3 +6,5 @@
 #include <d2d1.h>
 #include <string>
 #include <map>
+#include "Math.h"
+#include "Enums.h"

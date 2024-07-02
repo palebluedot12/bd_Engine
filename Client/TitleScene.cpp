@@ -23,6 +23,6 @@ void TitleScene::LateUpdate()
 	Scene::LateUpdate();
 }
 
-void TitleScene::Render()
+void TitleScene::Render(ID2D1RenderTarget* pRenderTarget)
 {
 }

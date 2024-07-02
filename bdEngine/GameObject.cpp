@@ -40,11 +40,11 @@ void GameObject::LateUpdate()
 	}
 }
 
-void GameObject::Render()
+void GameObject::Render(ID2D1RenderTarget* pRenderTarget)
 {
 	for (Component* comp : mComponents)
 	{
-		comp->Render();
+		comp->Render(pRenderTarget);
 	}
 
 

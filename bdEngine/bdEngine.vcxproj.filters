@@ -6,7 +6,6 @@
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="CommonInclude.h">
       <Filter>Common</Filter>
@@ -24,6 +23,15 @@
     <ClInclude Include="Math.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
@@ -31,7 +39,6 @@
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Entity.cpp">
       <Filter>Common</Filter>
@@ -46,6 +53,12 @@
     <ClCompile Include="Math.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Layer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -56,6 +69,12 @@
     </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{1d2e0f36-dce9-4cda-a1cf-9f43526a7b9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Layer">
+      <UniqueIdentifier>{befd5870-db0b-447b-9b9b-f1b5729d6f8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{8738848a-914a-4a4c-a722-41f554b9de62}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

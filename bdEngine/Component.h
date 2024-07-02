@@ -11,7 +11,7 @@ public:
 	virtual void Initialize();
 	virtual void Update();
 	virtual void LateUpdate();
-	virtual void Render();
+	virtual void Render(ID2D1RenderTarget* pRenderTarget);
 
 	void SetOwner(GameObject* owner) { m_Owner = owner; };
 	GameObject* GetOwner() { return m_Owner; }

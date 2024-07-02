@@ -1,4 +1,6 @@
 #include "SpriteRenderer.h"
+#include <cassert>
+
 
 SpriteRenderer::SpriteRenderer()
 {
@@ -20,7 +22,7 @@ void SpriteRenderer::LateUpdate()
 {
 }
 
-void SpriteRenderer::Render()
+void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
 {
 	////파랑 브러쉬 생성
 	//HBRUSH blueBrush
@@ -41,4 +43,13 @@ void SpriteRenderer::Render()
 	//DeleteObject(blueBrush);
 	//DeleteObject(redPen);
 
+	assert(m_pBitmap != nullptr);
+	//pRenderTarget->SetTransform(m_WorldTransform);
+	pRenderTarget->DrawBitmap(m_pBitmap);
+
+}
+
+void SpriteRenderer::ImageLoad(const std::wstring& path)
+{
+	
 }
