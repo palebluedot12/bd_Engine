@@ -6,6 +6,8 @@
 #include "..\\bdEngine\\SceneManager.h"
 #include "..\\bdEngine\\Object.h"
 #include "..\\bdEngine\\RenderManager.h"
+#include "..\\bdEngine\\ResourceManager.h"
+#include "..\\bdEngine\\Texture.h"
 #include "TitleScene.h"
 #include "Player.h"
 
@@ -40,7 +42,9 @@ void PlayScene::Initialize()
 		//AddGameObject(bg, eLayerType::BackGround);
 		bg = Instantiate<Player>(eLayerType::BackGround, Vector2(100.0f, 100.0f));
 		SpriteRenderer* sr = bg->AddComponent<SpriteRenderer>();
-		// sr->ImageLoad
+		
+		Texture* bg = ResourceManager::Find<Texture>(L"BG");
+		sr->S
 
 	}
 }

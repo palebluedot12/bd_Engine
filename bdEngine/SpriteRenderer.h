@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "Component.h"
+#include "Texture.h"
 
 class SpriteRenderer : public Component
 {
@@ -13,9 +14,10 @@ public:
 	void LateUpdate()  override;
 	void Render(ID2D1RenderTarget* pRenderTarget) override;
 
-	void ImageLoad(const std::wstring& path);
-
+	void SetTexture(Texture* texture) { m_Texture = texture; }
+	void SetSize(Vector2 size) { m_Size = size; }
 private:
 	ID2D1Bitmap* m_pBitmap = nullptr;
-
+	Vector2 m_Size;
+	Texture* m_Texture;
 };

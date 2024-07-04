@@ -106,6 +106,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
+   LoadResources();
    LoadScenes();
 
    return TRUE;
