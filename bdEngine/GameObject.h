@@ -39,5 +39,8 @@ public:
 	}
 
 private:
+	void InitializeTransform();
+
+private:
 	std::vector<Component*> mComponents;
 };

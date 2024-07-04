@@ -1,8 +1,8 @@
 #pragma once
 #include <d2d1.h>
 #include "GameObject.h"
+#include <wincodec.h>
 
-// 싱글톤으로 바꾸기
 // D2DRenderer
 class RenderManager
 {
@@ -29,7 +29,6 @@ private:
 	// D2D1비트맵 생성을 위한 이미지 처리 인터페이스
 	IWICImagingFactory* pWICFactory;
 
-	
 	GameObject m_Player; // 이거 Scene에서 들고있을거임
 
 	void CreateDeviceResources();

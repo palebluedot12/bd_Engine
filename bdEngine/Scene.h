@@ -18,6 +18,7 @@ public:
 	virtual void OnExit();
 
 	void AddGameObject(GameObject* gameObject, const eLayerType type);
+	Layer* GetLayer(const eLayerType type) { return mLayers[(UINT)type]; }
 
 private:
 	void CreateLayers();

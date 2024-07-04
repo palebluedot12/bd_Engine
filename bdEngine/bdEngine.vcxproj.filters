@@ -4,9 +4,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="RenderManager.h" />
-    <ClInclude Include="Time.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Transform.h" />
     <ClInclude Include="CommonInclude.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -19,7 +17,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Math.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -32,14 +29,33 @@
     <ClInclude Include="Enums.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="RenderManager.cpp" />
-    <ClCompile Include="Time.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Entity.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -49,7 +65,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Math.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -58,6 +73,24 @@
     </ClCompile>
     <ClCompile Include="Layer.cpp">
       <Filter>Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Resource\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +108,12 @@
     </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{8738848a-914a-4a4c-a722-41f554b9de62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{008530f3-e680-492c-baaa-f0cf045aae38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{4736b0b2-69aa-4b79-9028-da2b7dc5a7be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

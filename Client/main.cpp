@@ -3,6 +3,7 @@
 #include "..\\bdEngine\\GameManager.h"
 #include "LoadScenes.h"
 #include "..\\bdEngine\\CommonInclude.h"
+#include "LoadResources.h"
 
 //#pragma comment (lib, "..\\x64\\Debug\\bdEngine.lib")
 

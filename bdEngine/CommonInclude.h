@@ -8,3 +8,4 @@
 #include <map>
 #include "Math.h"
 #include "Enums.h"
+#include <cassert>

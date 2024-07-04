@@ -36,6 +36,7 @@
     <ClInclude Include="Player.h">
       <Filter>02. Contents</Filter>
     </ClInclude>
+    <ClInclude Include="LoadResources.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

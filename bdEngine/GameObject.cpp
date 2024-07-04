@@ -1,9 +1,11 @@
 #include "GameObject.h"
 #include "InputManager.h"
 #include "Time.h"
+#include "Transform.h"
 
 GameObject::GameObject()
 {
+	InitializeTransform();
 }
 
 GameObject::~GameObject()
@@ -48,4 +50,9 @@ void GameObject::Render(ID2D1RenderTarget* pRenderTarget)
 	}
 
 
+}
+
+void GameObject::InitializeTransform()
+{
+	AddComponent<Transform>();
 }

@@ -9,6 +9,9 @@ public:
 	{
 		T* scene = new T();
 		scene->SetName(name);
+
+		// ActiveScene설정 먼저 안해주면 Object만들때 현재 씬이 null뜸 
+		m_ActiveScene = scene;
 		scene->Initialize();
 
 		m_Scene.insert(std::make_pair(name, scene));
@@ -32,6 +35,7 @@ public:
 
 		return iter->second;
 	}
+	static Scene* GetActiveScene() { return m_ActiveScene; }
 
 	static void Initialize();
 	static void Update();

@@ -19,7 +19,7 @@ public:
 	void LateUpdate()  override;
 	void Render(ID2D1RenderTarget* pRenderTarget) override;
 
-	void SetPos(Vector2 pos) { m_Position.x = pos.x; m_Position.y = pos.y; }
+	void SetPosition(Vector2 pos) { m_Position.x = pos.x; m_Position.y = pos.y; }
 	Vector2 GetPosition() { return m_Position; }
 
 private:
