@@ -18,7 +18,6 @@ GameManager::~GameManager()
    
 }
 
-// DC 대신 D2D 메소드들로 대체
 void GameManager::Initialize(HWND hwnd)
 {
     RenderManager::Get()->Initialize(hwnd);
@@ -63,8 +62,8 @@ void GameManager::Render()
     RenderManager::Get()->GetRenderTarget()->BeginDraw();
     RenderManager::Get()->GetRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::Black));
 
-    Time::Render(pRenderTarget);
-    SceneManager::Render(pRenderTarget);
+    Time::Render(RenderManager::Get()->GetRenderTarget());
+    SceneManager::Render(RenderManager::Get()->GetRenderTarget());
 
     RenderManager::Get()->GetRenderTarget()->EndDraw();
 

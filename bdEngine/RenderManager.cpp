@@ -10,17 +10,33 @@ RenderManager::~RenderManager()
 {
 	DiscardDeviceResources();
 	if (pFactory) pFactory->Release();
+	if (pWICFactory) pWICFactory->Release();
 }
 
 void RenderManager::Initialize(HWND hwnd)
 {
 	m_Hwnd = hwnd;
 	//mHdc = GetDC(hwnd);
-	HRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory);
+	HRESULT hr = CoInitialize(NULL);
+
+	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory);
 	if (FAILED(hr)) {
 		std::cerr << "Failed to create D2D factory. HRESULT: " << hr << std::endl;
 		return;
 	}
+
+	// WIC 팩토리 초기화
+	hr = CoCreateInstance(
+		CLSID_WICImagingFactory,
+		NULL,
+		CLSCTX_INPROC_SERVER,
+		IID_PPV_ARGS(&pWICFactory)
+	);
+	if (FAILED(hr)) {
+		std::cerr << "Failed to create WIC factory. HRESULT: " << hr << std::endl;
+		return;
+	}
+
 	CreateDeviceResources();
 
 }
@@ -60,6 +76,11 @@ void RenderManager::DiscardDeviceResources()
 
 HRESULT RenderManager::CreateD2DBitmapFromFile(const WCHAR* szFilePath, ID2D1Bitmap** ppID2D1Bitmap)
 {
+	if (!pWICFactory)
+	{
+		return E_FAIL;
+	}
+
 	HRESULT hr;
 	// Create a decoder
 	IWICBitmapDecoder* pDecoder = NULL;
@@ -102,7 +123,6 @@ HRESULT RenderManager::CreateD2DBitmapFromFile(const WCHAR* szFilePath, ID2D1Bit
 	{
 		hr = GetRenderTarget()->CreateBitmapFromWicBitmap(pConverter, NULL, ppID2D1Bitmap);
 	}
-
 
 	// 파일을 사용할때마다 다시 만든다.
 	if (pConverter)

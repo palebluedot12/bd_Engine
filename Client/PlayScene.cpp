@@ -22,31 +22,16 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initialize()
 {
-	// // 오브젝트 추가
-	//GameObject* obj = new GameObject();
-	//AddGameObject(obj);
+	//게임오브젝트 만들기전에 리소스들 전부 Load해두면 좋다.
+	bg = Instantiate<Player>
+		(eLayerType::BackGround/*, Vector2(100.0f, 100.0f)*/);
+	SpriteRenderer* sr = bg->AddComponent<SpriteRenderer>();
 
-	{
-		//bg = new Player();
-		//Transform* tr
-		//	= bg->AddComponent<Transform>();
-		//tr->SetPosition(Vector2(0, 0));
+	Texture* bg = ResourceManager::Find<Texture>(L"BG");
+	sr->SetTexture(bg);
 
-		//tr->SetName(L"TR");
-
-		//SpriteRenderer* sr
-		//	= bg->AddComponent<SpriteRenderer>();
-		//sr->SetName(L"SR");
-		//sr->ImageLoad(L"C:\\D2D\\bd_Engine\\Resources\\Earth.png");
-
-		//AddGameObject(bg, eLayerType::BackGround);
-		bg = Instantiate<Player>(eLayerType::BackGround, Vector2(100.0f, 100.0f));
-		SpriteRenderer* sr = bg->AddComponent<SpriteRenderer>();
-		
-		Texture* bg = ResourceManager::Find<Texture>(L"BG");
-		sr->S
-
-	}
+	// 게임 오브젝트 생성후에 레이어와 게임오브젝트들의 init함수를 호출
+	Scene::Initialize();
 }
 
 void PlayScene::Update()

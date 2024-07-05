@@ -17,7 +17,6 @@ public:
 	void SetTexture(Texture* texture) { m_Texture = texture; }
 	void SetSize(Vector2 size) { m_Size = size; }
 private:
-	ID2D1Bitmap* m_pBitmap = nullptr;
 	Vector2 m_Size;
 	Texture* m_Texture;
 };
