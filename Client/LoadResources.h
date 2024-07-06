@@ -4,5 +4,5 @@
 
 void LoadResources()
 {
-	ResourceManager::Load<Texture>(L"BG", L"C:\\D2D\\bd_Engine\\Resources\\Earth.png");
+	ResourceManager::Load<Texture>(L"BG", L"..\\Resources\\Earth.png");
 }

@@ -25,13 +25,39 @@ void RenderManager::Initialize(HWND hwnd)
 		return;
 	}
 
-	// WIC 팩토리 초기화
-	hr = CoCreateInstance(
-		CLSID_WICImagingFactory,
-		NULL,
-		CLSCTX_INPROC_SERVER,
-		IID_PPV_ARGS(&pWICFactory)
-	);
+	if (SUCCEEDED(hr))
+	{
+		/*
+		Direct3D 장치에 바인딩된 리소스를 만듭니다.
+		Direct3D 장치가 손실된 경우(예: 디스플레이 변경, 원격, 비디오 카드 제거 등)
+		리소스를 다시 생성해야 하는 경우를 대비하여 모두 여기에 중앙 집중화되어 있습니다.
+		*/
+		RECT rc;
+		GetClientRect(hwnd, &rc);
+
+		D2D1_SIZE_U size = D2D1::SizeU(
+			rc.right - rc.left,
+			rc.bottom - rc.top);
+
+		// Create a Direct2D render target.
+		hr = pFactory->CreateHwndRenderTarget(
+			D2D1::RenderTargetProperties(),
+			D2D1::HwndRenderTargetProperties(hwnd, size),
+			&pRenderTarget);
+	}
+
+	if (SUCCEEDED(hr))
+	{
+		// WIC 팩토리 초기화
+		hr = CoCreateInstance(
+			CLSID_WICImagingFactory,
+			NULL,
+			CLSCTX_INPROC_SERVER,
+			IID_PPV_ARGS(&pWICFactory)
+		);
+	}
+
+
 	if (FAILED(hr)) {
 		std::cerr << "Failed to create WIC factory. HRESULT: " << hr << std::endl;
 		return;
