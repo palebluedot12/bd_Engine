@@ -24,7 +24,7 @@ void PlayScene::Initialize()
 {
 	//게임오브젝트 만들기전에 리소스들 전부 Load해두면 좋다.
 	bg = Instantiate<Player>
-		(eLayerType::BackGround/*, Vector2(100.0f, 100.0f)*/);
+		(eLayerType::BackGround, Vector2(300.0f, -50.0f));
 	SpriteRenderer* sr = bg->AddComponent<SpriteRenderer>();
 
 	Texture* bg = ResourceManager::Find<Texture>(L"BG");

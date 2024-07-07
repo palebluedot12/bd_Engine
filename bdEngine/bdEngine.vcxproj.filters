@@ -50,6 +50,9 @@
     <ClInclude Include="Texture.h">
       <Filter>Resource\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="Script.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
@@ -91,6 +94,9 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Script.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
