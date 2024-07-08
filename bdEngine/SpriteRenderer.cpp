@@ -9,6 +9,7 @@ SpriteRenderer::SpriteRenderer()
     : Component(eComponentType::SpriteRenderer)
     , m_Size(100.0f, 100.0f)
     , m_UseCustomSize(false)
+
 {
 }
 
@@ -36,7 +37,7 @@ void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
 
     if (m_Texture == nullptr)
     {
-        assert(false && "Texture is not set");
+        assert(false && "Texture NULL");
         return;
     }
 
@@ -47,7 +48,7 @@ void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
     ID2D1Bitmap* pBitmap = m_Texture->GetBitmap();
     if (pBitmap == nullptr)
     {
-        assert(false && "Bitmap is null");
+        assert(false && "Bitmap NULL");
         return;
     }
 
@@ -62,7 +63,7 @@ void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
     {
         renderSize = Vector2(originalSize.width, originalSize.height);
     }
-
+  
     D2D1_RECT_F destinationRect = D2D1::RectF(
         pos.x,
         pos.y,

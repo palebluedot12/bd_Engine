@@ -61,11 +61,6 @@ void GameObject::Render(ID2D1RenderTarget* pRenderTarget)
 
 }
 
-SpriteRenderer* GameObject::GetSpriteRenderer()
-{
-	return GetComponent<SpriteRenderer>();
-}
-
 void GameObject::InitializeTransform()
 {
 	AddComponent<Transform>();

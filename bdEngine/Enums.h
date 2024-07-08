@@ -16,7 +16,7 @@ enum class eLayerType
 	None,
 	BackGround,
 	//Tree 
-	//character
+	Object,
 	Player,
 	Max = 16,
 };

@@ -35,12 +35,12 @@ void PlayScene::Initialize()
 		(eLayerType::BackGround, Vector2(300.0f, -50.0f));
 	SpriteRenderer* sr = m_Player->AddComponent<SpriteRenderer>();
 	//m_Player->AddComponent<PlayerScript>();
-
 	Texture* bgtex = ResourceManager::Find<Texture>(L"BG");
 	sr->SetTexture(bgtex);
 
-	GameObject* sun = Instantiate<GameObject>(eLayerType::BackGround, Vector2(500.0f, -50.0f), Vector2(30.0f, 30.0f));
+	GameObject* sun = Instantiate<GameObject>(eLayerType::Object, Vector2(400.0f, .0f));
 	SpriteRenderer* sr2 = sun->AddComponent<SpriteRenderer>();
+	sr2->SetSize(300.0f, 300.0f);
 	Texture* bg2tex = ResourceManager::Find<Texture>(L"Sun");
 	sr2->SetTexture(bg2tex);
 	

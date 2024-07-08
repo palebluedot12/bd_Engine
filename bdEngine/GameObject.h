@@ -41,8 +41,6 @@ public:
 		return component;
 	}
 
-	SpriteRenderer* GetSpriteRenderer();
-
 private:
 	void InitializeTransform();
 
