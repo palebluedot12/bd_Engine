@@ -1,7 +1,9 @@
 #include "Component.h"
 
-Component::Component()
+Component::Component(eComponentType type)
+	:m_Type(type)
 {
+
 }
 
 Component::~Component()

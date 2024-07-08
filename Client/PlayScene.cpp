@@ -8,6 +8,8 @@
 #include "..\\bdEngine\\RenderManager.h"
 #include "..\\bdEngine\\ResourceManager.h"
 #include "..\\bdEngine\\Texture.h"
+#include "..\\bdEngine\\Camera.h"
+#include "PlayerScript.h"
 #include "TitleScene.h"
 #include "Player.h"
 
@@ -22,14 +24,26 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initialize()
 {
-	//게임오브젝트 만들기전에 리소스들 전부 Load해두면 좋다.
-	bg = Instantiate<Player>
+	// Main Camera
+	GameObject* camera = Instantiate<GameObject>(eLayerType::None);
+	Camera* cameraComp = camera->AddComponent<Camera>();
+	mainCamera = cameraComp;
+
+	camera->AddComponent<PlayerScript>();
+
+	m_Player = Instantiate<Player>
 		(eLayerType::BackGround, Vector2(300.0f, -50.0f));
-	SpriteRenderer* sr = bg->AddComponent<SpriteRenderer>();
+	SpriteRenderer* sr = m_Player->AddComponent<SpriteRenderer>();
+	//m_Player->AddComponent<PlayerScript>();
 
-	Texture* bg = ResourceManager::Find<Texture>(L"BG");
-	sr->SetTexture(bg);
+	Texture* bgtex = ResourceManager::Find<Texture>(L"BG");
+	sr->SetTexture(bgtex);
 
+	GameObject* sun = Instantiate<GameObject>(eLayerType::BackGround, Vector2(500.0f, -50.0f), Vector2(30.0f, 30.0f));
+	SpriteRenderer* sr2 = sun->AddComponent<SpriteRenderer>();
+	Texture* bg2tex = ResourceManager::Find<Texture>(L"Sun");
+	sr2->SetTexture(bg2tex);
+	
 	// 게임 오브젝트 생성후에 레이어와 게임오브젝트들의 init함수를 호출
 	Scene::Initialize();
 }

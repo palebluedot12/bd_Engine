@@ -2,6 +2,8 @@
 #include <wincodec.h>
 #include <iostream>
 
+Camera* mainCamera = nullptr;
+
 RenderManager::RenderManager()
 {
 }
@@ -69,6 +71,7 @@ void RenderManager::Initialize(HWND hwnd)
 
 void RenderManager::Render()
 {
+
 }
 
 

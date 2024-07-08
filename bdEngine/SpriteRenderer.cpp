@@ -6,6 +6,9 @@
 
 
 SpriteRenderer::SpriteRenderer()
+    : Component(eComponentType::SpriteRenderer)
+    , m_Size(100.0f, 100.0f)
+    , m_UseCustomSize(false)
 {
 }
 
@@ -39,6 +42,7 @@ void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
 
     Transform* tr = GetOwner()->GetComponent<Transform>();
     Vector2 pos = tr->GetPosition();
+    pos = mainCamera->CalculatePosition(pos);                   // 카메라 좌표 적용
 
     ID2D1Bitmap* pBitmap = m_Texture->GetBitmap();
     if (pBitmap == nullptr)
@@ -48,11 +52,22 @@ void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
     }
 
     D2D1_SIZE_F originalSize = pBitmap->GetSize();
+    Vector2 renderSize;
+
+    if (m_UseCustomSize)
+    {
+        renderSize = m_Size;
+    }
+    else
+    {
+        renderSize = Vector2(originalSize.width, originalSize.height);
+    }
+
     D2D1_RECT_F destinationRect = D2D1::RectF(
-        pos.x, 
-        pos.y, 
-        pos.x + originalSize.width, 
-        pos.y + originalSize.height
+        pos.x,
+        pos.y,
+        pos.x + renderSize.x,
+        pos.y + renderSize.y
     );
 
     pRenderTarget->DrawBitmap(

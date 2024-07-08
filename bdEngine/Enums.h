@@ -1,5 +1,16 @@
 #pragma once
 
+// 업데이트 순서
+enum class eComponentType
+{
+	Transform,
+	SpriteRenderer,
+	Script,
+	Camera,
+	End,
+};
+
+//업데이트 순서
 enum class eLayerType
 {
 	None,

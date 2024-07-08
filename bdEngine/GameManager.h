@@ -12,8 +12,11 @@ public:
 	void LateUpdate();
 	void Render();
 
+	UINT GetWidth() { return mWidth; }
+	UINT GetHeight() { return mHeight; }
+
 private:
-	
-	float m_Speed;
+	UINT mWidth;
+	UINT mHeight;
 };
 

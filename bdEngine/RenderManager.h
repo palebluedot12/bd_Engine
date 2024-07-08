@@ -2,6 +2,9 @@
 #include <d2d1.h>
 #include "GameObject.h"
 #include <wincodec.h>
+#include "Camera.h"
+
+extern Camera* mainCamera;
 
 // D2DRenderer
 class RenderManager

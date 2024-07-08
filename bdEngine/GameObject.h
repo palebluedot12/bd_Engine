@@ -1,6 +1,7 @@
 #pragma once
 #include "CommonInclude.h"
 #include "Component.h"
+#include "SpriteRenderer.h"
 
 class GameObject
 {
@@ -19,7 +20,9 @@ public:
 		T* comp = new T();
 		comp->Initialize();
 		comp->SetOwner(this);
-		mComponents.push_back(comp);
+
+		mComponents[(UINT)comp->GetType()] = comp;
+		//mComponents.push_back(comp);
 
 		return comp;
 	}
@@ -37,6 +40,8 @@ public:
 
 		return component;
 	}
+
+	SpriteRenderer* GetSpriteRenderer();
 
 private:
 	void InitializeTransform();

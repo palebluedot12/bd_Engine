@@ -140,6 +140,7 @@
     <ClInclude Include="LoadResources.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerScript.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Client.h" />
@@ -149,6 +150,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerScript.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>

@@ -16,5 +16,5 @@ public:
 	virtual void OnExit() override;
 
 private:
-	class Player* bg;
+	class Player* m_Player;
 };

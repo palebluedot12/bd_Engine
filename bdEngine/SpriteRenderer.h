@@ -15,8 +15,10 @@ public:
 	void Render(ID2D1RenderTarget* pRenderTarget) override;
 
 	void SetTexture(Texture* texture) { m_Texture = texture; }
-	void SetSize(Vector2 size) { m_Size = size; }
+	void SetSize(Vector2 size) { m_Size = size; m_UseCustomSize = true; }
+
 private:
 	Vector2 m_Size;
 	Texture* m_Texture;
+	bool m_UseCustomSize;
 };

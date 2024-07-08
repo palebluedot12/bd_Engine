@@ -20,4 +20,5 @@ public:
 private:
 	//eLayerType mType;
 	std::vector<GameObject*> mGameObjects;
+
 };

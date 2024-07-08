@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene()
-	: mLayers{}
+	: m_Layers{}
 {
 	CreateLayers();
 }
@@ -10,7 +10,7 @@ Scene::~Scene()
 }
 void Scene::Initialize()
 {
-	for (Layer* layer : mLayers)
+	for (Layer* layer : m_Layers)
 	{
 		if (layer == nullptr)
 			continue;
@@ -20,7 +20,7 @@ void Scene::Initialize()
 }
 void Scene::Update()
 {
-	for (Layer* layer : mLayers)
+	for (Layer* layer : m_Layers)
 	{
 		if (layer == nullptr)
 			continue;
@@ -30,7 +30,7 @@ void Scene::Update()
 }
 void Scene::LateUpdate()
 {
-	for (Layer* layer : mLayers)
+	for (Layer* layer : m_Layers)
 	{
 		if (layer == nullptr)
 			continue;
@@ -40,7 +40,7 @@ void Scene::LateUpdate()
 }
 void Scene::Render(ID2D1RenderTarget* pRenderTarget)
 {
-	for (Layer* layer : mLayers)
+	for (Layer* layer : m_Layers)
 	{
 		if (layer == nullptr)
 			continue;
@@ -51,15 +51,15 @@ void Scene::Render(ID2D1RenderTarget* pRenderTarget)
 
 void Scene::AddGameObject(GameObject* gameObj, const eLayerType type)
 {
-	mLayers[(UINT)type]->AddGameObject(gameObj);
+	m_Layers[(UINT)type]->AddGameObject(gameObj);
 }
 
 void Scene::CreateLayers()
 {
-	mLayers.resize((UINT)eLayerType::Max);
+	m_Layers.resize((UINT)eLayerType::Max);
 	for (size_t i = 0; i < (UINT)eLayerType::Max; i++)
 	{
-		mLayers[i] = new Layer();
+		m_Layers[i] = new Layer();
 	}
 }
 

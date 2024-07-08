@@ -5,7 +5,7 @@ class GameObject;
 class Component : public Entity
 {
 public:
-	Component();
+	Component(eComponentType type);
 	~Component();
 
 	virtual void Initialize();
@@ -15,7 +15,9 @@ public:
 
 	void SetOwner(GameObject* owner) { m_Owner = owner; };
 	GameObject* GetOwner() { return m_Owner; }
+	eComponentType GetType() { return m_Type; }
+
 private:
 	GameObject* m_Owner;
-	// 전방선언
+	eComponentType m_Type;
 };

@@ -1,5 +1,14 @@
 #include "Script.h"
 
+Script::Script()
+	: Component(eComponentType::Script)
+{
+}
+
+Script::~Script()
+{
+}
+
 void Script::Initialize()
 {
 }

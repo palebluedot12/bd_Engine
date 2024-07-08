@@ -10,6 +10,9 @@
     <Filter Include="02. Contents">
       <UniqueIdentifier>{b11fd85a-3f7c-4c3a-9b3d-0ced163b3967}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scripts">
+      <UniqueIdentifier>{ee1aa55e-b0d0-49d5-b9a9-1f3fcef7d56c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h">
@@ -37,6 +40,9 @@
       <Filter>02. Contents</Filter>
     </ClInclude>
     <ClInclude Include="LoadResources.h" />
+    <ClInclude Include="PlayerScript.h">
+      <Filter>03. Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -56,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>02. Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerScript.cpp">
+      <Filter>03. Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -18,12 +18,12 @@ public:
 	virtual void OnExit();
 
 	void AddGameObject(GameObject* gameObject, const eLayerType type);
-	Layer* GetLayer(const eLayerType type) { return mLayers[(UINT)type]; }
+	Layer* GetLayer(const eLayerType type) { return m_Layers[(UINT)type]; }
 
 private:
 	void CreateLayers();
 
 private:
 	// Scene은 Layer들을, Layer들은 Object들을 갖고 있음
-	std::vector<Layer*> mLayers;
+	std::vector<Layer*> m_Layers;
 };
