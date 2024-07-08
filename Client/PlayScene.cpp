@@ -25,11 +25,14 @@ PlayScene::~PlayScene()
 void PlayScene::Initialize()
 {
 	// Main Camera
-	GameObject* camera = Instantiate<GameObject>(eLayerType::None);
-	Camera* cameraComp = camera->AddComponent<Camera>();
+	GameObject* cameraObj = Instantiate<GameObject>(eLayerType::None);
+	Camera* cameraComp = cameraObj->AddComponent<Camera>();
 	mainCamera = cameraComp;
 
-	camera->AddComponent<PlayerScript>();
+	//camera->AddComponent<PlayerScript>();
+
+	PlayerScript* cameraScript = cameraObj->AddComponent<PlayerScript>();
+	cameraScript->SetCamera(cameraComp);
 
 	m_Player = Instantiate<Player>
 		(eLayerType::BackGround, Vector2(300.0f, -50.0f));
