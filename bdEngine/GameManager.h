@@ -12,11 +12,11 @@ public:
 	void LateUpdate();
 	void Render();
 
-	UINT GetWidth() { return mWidth; }
-	UINT GetHeight() { return mHeight; }
+	UINT GetWidth() { return m_Width; }
+	UINT GetHeight() { return m_Height; }
 
 private:
-	UINT mWidth;
-	UINT mHeight;
+	UINT m_Width = 1600;
+	UINT m_Height = 900;
 };
 

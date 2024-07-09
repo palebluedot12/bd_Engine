@@ -1,6 +1,9 @@
 #include "RenderManager.h"
 #include <wincodec.h>
 #include <iostream>
+#include "ResourceManager.h"
+#include "Transform.h"
+#include "CommonInclude.h"
 
 Camera* mainCamera = nullptr;
 
@@ -164,4 +167,80 @@ HRESULT RenderManager::CreateD2DBitmapFromFile(const WCHAR* szFilePath, ID2D1Bit
 		pFrame->Release();
 
 	return hr;
+}
+
+void RenderManager::CreateRandomEarths(int count)
+{
+	for (int i = 0; i < count; ++i)
+	{
+		GameObject* earth = new GameObject();
+		SpriteRenderer* sr = earth->AddComponent<SpriteRenderer>();
+		sr->SetTexture(ResourceManager::Find<Texture>(L"BG"));
+		sr->SetSize(100.0f, 100.0f);
+
+		float x = static_cast<float>(rand() % 3000);
+		float y = static_cast<float>(rand() % 3000);
+		earth->GetComponent<Transform>()->SetPosition(Vector2(x, y));
+
+		m_Earths.push_back(earth);
+	}
+}
+
+void RenderManager::UpdateAndRender()
+{
+	if (!mainCamera) return;
+
+	// 모든 객체 업데이트
+	for (auto& earth : m_Earths)
+	{
+		earth->Update();
+	}
+
+	// 카메라 컬링 수행
+	mainCamera->CullObjects(m_Earths);
+
+	// 실제 렌더링
+	pRenderTarget->BeginDraw();
+
+	const auto& visibleObjects = mainCamera->GetVisibleObjects();
+	for (const auto& obj : visibleObjects)
+	{
+		obj->Render(pRenderTarget);
+	}
+
+	RenderDebugInfo(visibleObjects.size());
+
+	pRenderTarget->EndDraw();
+}
+
+void RenderManager::RenderDebugInfo(size_t visibleObjectCount)
+{
+	// VRAM 사용량 계산
+	DXGI_QUERY_VIDEO_MEMORY_INFO memInfo = {};
+
+	// VRAM 정보를 가져오는 코드...
+	wchar_t debugText[256];
+	swprintf_s(debugText, L"Visible Objects: %zu\nVRAM Usage: %d MB",
+		visibleObjectCount, memInfo.CurrentUsage / (1024 * 1024));
+
+	ID2D1SolidColorBrush* pBrush;
+	pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pBrush);
+
+	// 텍스트 포맷 생성 (한 번만 생성하고 재사용하는 것이 좋음)
+	IDWriteFactory* pDWriteFactory;
+	DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pDWriteFactory));
+	IDWriteTextFormat* pTextFormat;
+	pDWriteFactory->CreateTextFormat(L"Arial", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 20, L"en-us", &pTextFormat);
+
+	pRenderTarget->DrawText(
+		debugText,
+		wcslen(debugText),
+		pTextFormat,
+		D2D1::RectF(10, 10, 200, 100),
+		pBrush
+	);
+
+	pBrush->Release();
+	pTextFormat->Release();
+	pDWriteFactory->Release();
 }

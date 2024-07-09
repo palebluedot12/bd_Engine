@@ -24,7 +24,7 @@ void Camera::Initialize()
 	m_Resolution.x = application.GetWidth();
 	m_Resolution.y = application.GetHeight();
 	m_Zoom = 1.0f;
-	m_LookPosition = Vector2::Zero;
+	m_LookPosition = { 800, 450 };
 	UpdateViewMatrix();
 }
 void Camera::Update()
@@ -51,6 +51,36 @@ void Camera::LateUpdate()
 }
 void Camera::Render(ID2D1RenderTarget* pRenderTarget)
 {
+}
+
+void Camera::CullObjects(const std::vector<GameObject*>& objects)
+{
+	m_VisibleObjects.clear();
+	Vector2 cameraPos = GetLookPosition();
+	Vector2 cameraSize = GetResolution();
+
+	for (const auto& obj : objects)
+	{
+		SpriteRenderer* sr = obj->GetComponent<SpriteRenderer>();
+		if (!sr) continue;
+
+		Transform* tr = obj->GetComponent<Transform>();
+		Vector2 pos = tr->GetPosition();
+		Vector2 size = sr->GetSize();
+
+		Vector2 viewPos = CalculatePosition(pos);
+
+		bool isVisible =
+			viewPos.x + size.x / 2 > 0 &&
+			viewPos.x - size.x / 2 < cameraSize.x &&
+			viewPos.y + size.y / 2 > 0 &&
+			viewPos.y - size.y / 2 < cameraSize.y;
+
+		if (isVisible)
+		{
+			m_VisibleObjects.push_back(obj);
+		}
+	}
 }
 
 Vector2 Camera::CalculatePosition(Vector2 pos)

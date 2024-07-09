@@ -12,6 +12,7 @@
 #include "PlayerScript.h"
 #include "TitleScene.h"
 #include "Player.h"
+#include "..\\bdEngine\\CommonInclude.h"
 
 
 PlayScene::PlayScene()
@@ -24,13 +25,13 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initialize()
 {
+	RenderManager::Get()->CreateRandomEarths(300);
+
 	// Main Camera
 	GameObject* cameraObj = Instantiate<GameObject>(eLayerType::None);
 	Camera* cameraComp = cameraObj->AddComponent<Camera>();
 	mainCamera = cameraComp;
-
 	//camera->AddComponent<PlayerScript>();
-
 	PlayerScript* cameraScript = cameraObj->AddComponent<PlayerScript>();
 	cameraScript->SetCamera(cameraComp);
 
@@ -55,6 +56,7 @@ void PlayScene::Initialize()
 void PlayScene::Update()
 {
 	Scene::Update();
+	RenderManager::Get()->UpdateAndRender();
 }
 
 void PlayScene::LateUpdate()
