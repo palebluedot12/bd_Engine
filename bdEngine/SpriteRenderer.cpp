@@ -63,13 +63,19 @@ void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
     {
         renderSize = Vector2(originalSize.width, originalSize.height);
     }
-  
+
+
     D2D1_RECT_F destinationRect = D2D1::RectF(
         pos.x,
         pos.y,
         pos.x + renderSize.x,
         pos.y + renderSize.y
     );
+
+    D2D1::Matrix3x2F currentTransform;
+    pRenderTarget->GetTransform(&currentTransform);
+
+    pRenderTarget->SetTransform(mainCamera->GetViewMatrix() * currentTransform);
 
     pRenderTarget->DrawBitmap(
         pBitmap,
@@ -78,4 +84,6 @@ void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
         D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,
         D2D1::RectF(0, 0, originalSize.width, originalSize.height)  // Source rectangle
     );
+
+    pRenderTarget->SetTransform(currentTransform);  // 원래 변환 행렬로 복원
 }

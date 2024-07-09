@@ -35,15 +35,16 @@ void PlayScene::Initialize()
 	cameraScript->SetCamera(cameraComp);
 
 	m_Player = Instantiate<Player>
-		(eLayerType::BackGround, Vector2(300.0f, -50.0f));
+		(eLayerType::BackGround, Vector2(300.0f, 50.0f));
 	SpriteRenderer* sr = m_Player->AddComponent<SpriteRenderer>();
+	sr->SetSize(100.0f, 100.0f);
 	//m_Player->AddComponent<PlayerScript>();
 	Texture* bgtex = ResourceManager::Find<Texture>(L"BG");
 	sr->SetTexture(bgtex);
 
 	GameObject* sun = Instantiate<GameObject>(eLayerType::Object, Vector2(400.0f, .0f));
 	SpriteRenderer* sr2 = sun->AddComponent<SpriteRenderer>();
-	sr2->SetSize(300.0f, 300.0f);
+	sr2->SetSize(500.0f, 500.0f);
 	Texture* bg2tex = ResourceManager::Find<Texture>(L"Sun");
 	sr2->SetTexture(bg2tex);
 	

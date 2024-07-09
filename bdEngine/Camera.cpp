@@ -53,6 +53,13 @@ void Camera::Render(ID2D1RenderTarget* pRenderTarget)
 {
 }
 
+Vector2 Camera::CalculatePosition(Vector2 pos)
+{
+	D2D1_POINT_2F point = D2D1::Point2F(pos.x, pos.y);
+	D2D1_POINT_2F transformedPoint = m_ViewMatrix.TransformPoint(point);
+	return Vector2(transformedPoint.x, transformedPoint.y);
+}
+
 void Camera::Move(const Vector2& offset)
 {
 	m_LookPosition += offset;
