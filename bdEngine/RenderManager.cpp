@@ -169,49 +169,33 @@ HRESULT RenderManager::CreateD2DBitmapFromFile(const WCHAR* szFilePath, ID2D1Bit
 	return hr;
 }
 
-void RenderManager::CreateRandomEarths(int count)
-{
-	for (int i = 0; i < count; ++i)
-	{
-		GameObject* earth = new GameObject();
-		SpriteRenderer* sr = earth->AddComponent<SpriteRenderer>();
-		sr->SetTexture(ResourceManager::Find<Texture>(L"BG"));
-		sr->SetSize(100.0f, 100.0f);
 
-		float x = static_cast<float>(rand() % 3000);
-		float y = static_cast<float>(rand() % 3000);
-		earth->GetComponent<Transform>()->SetPosition(Vector2(x, y));
-
-		m_Earths.push_back(earth);
-	}
-}
-
-void RenderManager::UpdateAndRender()
-{
-	if (!mainCamera) return;
-
-	// 모든 객체 업데이트
-	for (auto& earth : m_Earths)
-	{
-		earth->Update();
-	}
-
-	// 카메라 컬링 수행
-	mainCamera->CullObjects(m_Earths);
-
-	// 실제 렌더링
-	pRenderTarget->BeginDraw();
-
-	const auto& visibleObjects = mainCamera->GetVisibleObjects();
-	for (const auto& obj : visibleObjects)
-	{
-		obj->Render(pRenderTarget);
-	}
-
-	RenderDebugInfo(visibleObjects.size());
-
-	pRenderTarget->EndDraw();
-}
+//void RenderManager::UpdateAndRender()
+//{
+//	if (!mainCamera) return;
+//
+//	// 모든 객체 업데이트
+//	for (auto& earth : m_Earths)
+//	{
+//		earth->Update();
+//	}
+//
+//	// 카메라 컬링 수행
+//	mainCamera->CullObjects(m_Earths);
+//
+//	// 실제 렌더링
+//	pRenderTarget->BeginDraw();
+//
+//	const auto& visibleObjects = mainCamera->GetVisibleObjects();
+//	for (const auto& obj : visibleObjects)
+//	{
+//		obj->Render(pRenderTarget);
+//	}
+//
+//	RenderDebugInfo(visibleObjects.size());
+//
+//	pRenderTarget->EndDraw();
+//}
 
 void RenderManager::RenderDebugInfo(size_t visibleObjectCount)
 {
@@ -220,7 +204,7 @@ void RenderManager::RenderDebugInfo(size_t visibleObjectCount)
 
 	// VRAM 정보를 가져오는 코드...
 	wchar_t debugText[256];
-	swprintf_s(debugText, L"Visible Objects: %zu\nVRAM Usage: %d MB",
+	swprintf_s(debugText, L"Visible Objects: %zu\nVRAM Usage: %d MB\nCamera pos: ",
 		visibleObjectCount, memInfo.CurrentUsage / (1024 * 1024));
 
 	ID2D1SolidColorBrush* pBrush;

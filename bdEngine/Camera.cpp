@@ -10,7 +10,7 @@ Camera::Camera()
 	: Component(eComponentType::Camera)
 	, m_Distance(Vector2::Zero)
 	, m_Resolution(Vector2(1600.0f, 900.0f))
-	, m_LookPosition(Vector2::Zero)
+	, m_LookPosition(800.0, 450.0)
 	, m_Target(nullptr)
 {
 }
@@ -24,7 +24,6 @@ void Camera::Initialize()
 	m_Resolution.x = application.GetWidth();
 	m_Resolution.y = application.GetHeight();
 	m_Zoom = 1.0f;
-	m_LookPosition = { 800, 450 };
 	UpdateViewMatrix();
 }
 void Camera::Update()

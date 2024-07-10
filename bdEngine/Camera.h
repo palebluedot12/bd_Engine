@@ -8,7 +8,6 @@ public:
 	Camera();
 	~Camera();
 
-	// 우측으로 500만큼 움직였으면, 그려지는 좌표는 그 반대로 500만큼 가면 된다
 	Vector2 CalculatePosition(Vector2 pos); //{ return pos - m_Distance; }; 
 	void SetTarget(GameObject* target) { m_Target = target; }
 	void Move(const Vector2& offset);

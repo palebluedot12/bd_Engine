@@ -12,5 +12,9 @@ public:
 	void LateUpdate() override;
 	void Render(ID2D1RenderTarget* pRenderTarget) override;
 
+	virtual void OnCollisionEnter(class Collider* other);
+	virtual void OnCollisionStay(class Collider* other);
+	virtual void OnCollisionExit(class Collider* other);
+
 };
 

@@ -13,6 +13,9 @@
 #include "TitleScene.h"
 #include "Player.h"
 #include "..\\bdEngine\\CommonInclude.h"
+#include "..\\bdEngine\\BoxCollider2D.h"
+#include "..\\bdEngine\\CircleCollider2D.h"
+
 
 
 PlayScene::PlayScene()
@@ -25,7 +28,7 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initialize()
 {
-	RenderManager::Get()->CreateRandomEarths(300);
+	//RenderManager::Get()->CreateRandomEarths(300);
 
 	// Main Camera
 	GameObject* cameraObj = Instantiate<GameObject>(eLayerType::None);
@@ -48,6 +51,25 @@ void PlayScene::Initialize()
 	sr2->SetSize(500.0f, 500.0f);
 	Texture* bg2tex = ResourceManager::Find<Texture>(L"Sun");
 	sr2->SetTexture(bg2tex);
+	BoxCollider2D* sunCol = sun->AddComponent<BoxCollider2D>();
+	sunCol->SetOffset(Vector2(150.0f, -50.0f));
+
+	for (int i = 0; i < 500; ++i)
+	{
+		float randomX = static_cast<float>(rand() % 5000 - 2500); 
+		float randomY = static_cast<float>(rand() % 5000 - 2500);
+		Vector2 randomPosition(randomX, randomY);
+
+		GameObject* star = Instantiate<GameObject>(eLayerType::Object, randomPosition);
+
+		SpriteRenderer* srStar = star->AddComponent<SpriteRenderer>();
+		srStar->SetSize(50.0f, 50.0f);
+
+		Texture* starTexture = ResourceManager::Find<Texture>(L"Star");
+		srStar->SetTexture(starTexture);
+		srStar->SetAlpha(0.3f);
+	}
+
 	
 	// 게임 오브젝트 생성후에 레이어와 게임오브젝트들의 init함수를 호출
 	Scene::Initialize();
@@ -56,7 +78,8 @@ void PlayScene::Initialize()
 void PlayScene::Update()
 {
 	Scene::Update();
-	RenderManager::Get()->UpdateAndRender();
+	//RenderManager::Get()->UpdateAndRender();
+
 }
 
 void PlayScene::LateUpdate()
@@ -66,6 +89,8 @@ void PlayScene::LateUpdate()
 void PlayScene::Render(ID2D1RenderTarget* pRenderTarget)
 {
 	Scene::Render(pRenderTarget);
+	//RenderManager::Get()->UpdateAndRender();
+
 }
 
 void PlayScene::OnEnter()

@@ -17,10 +17,12 @@ public:
 	void SetTexture(Texture* texture) { m_Texture = texture; }
 	void SetSize(float x, float y) { m_Size.x = x; m_Size.y = y; m_UseCustomSize = true; }
 	Vector2 GetSize() const { return m_Size; }
+	void SetAlpha(float alpha) { m_Alpha = alpha; }
 
 private:
 	Vector2 m_Size;
 	Texture* m_Texture;
 	bool m_UseCustomSize;
+	float m_Alpha = 1.0f;
 
 };

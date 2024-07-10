@@ -4,8 +4,10 @@
 enum class eComponentType
 {
 	Transform,
-	SpriteRenderer,
+	Collider,
 	Script,
+	SpriteRenderer,
+	Animator,
 	Camera,
 	End,
 };
@@ -26,5 +28,12 @@ enum class eResourceType
 	Texture,
 	AudioClip,
 	Prefab,
+	End,
+};
+
+enum class eColliderType
+{
+	Circle2D,
+	Rect2D,
 	End,
 };

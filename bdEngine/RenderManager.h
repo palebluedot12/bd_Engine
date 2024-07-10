@@ -40,7 +40,5 @@ private:
 	void CreateDeviceResources();
 	void DiscardDeviceResources();
 
-	std::vector<GameObject*> m_Earths;
-
 };
 
