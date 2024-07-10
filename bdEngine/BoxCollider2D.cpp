@@ -26,7 +26,7 @@ void BoxCollider2D::Render(ID2D1RenderTarget* pRenderTarget)
 	Transform* tr = GetOwner()->GetComponent<Transform>();
 	Vector2 pos = tr->GetPosition();
     Vector2 offset = GetOffset();
-    Vector2 size = GetSize() * 100; // Scale size by 100
+    Vector2 size = GetSize() * 500; // Scale size by 100
 
 	if (mainCamera)
 		pos = mainCamera->CalculatePosition(pos);
@@ -40,7 +40,7 @@ void BoxCollider2D::Render(ID2D1RenderTarget* pRenderTarget)
 
     // Create a green brush
     ID2D1SolidColorBrush* pBrush;
-    pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Green), &pBrush);
+    pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pBrush);
 
     // Draw the rectangle
     pRenderTarget->DrawRectangle(rect, pBrush);
