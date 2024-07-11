@@ -15,6 +15,7 @@
 #include "..\\bdEngine\\CommonInclude.h"
 #include "..\\bdEngine\\BoxCollider2D.h"
 #include "..\\bdEngine\\CircleCollider2D.h"
+#include "..\\bdEngine\\Animator.h"
 
 
 
@@ -39,12 +40,19 @@ void PlayScene::Initialize()
 	cameraScript->SetCamera(cameraComp);
 
 	m_Player = Instantiate<Player>
-		(eLayerType::BackGround, Vector2(300.0f, 50.0f));
-	SpriteRenderer* sr = m_Player->AddComponent<SpriteRenderer>();
-	sr->SetSize(100.0f, 100.0f);
-	//m_Player->AddComponent<PlayerScript>();
-	Texture* bgtex = ResourceManager::Find<Texture>(L"BG");
-	sr->SetTexture(bgtex);
+		(eLayerType::Player, Vector2(300.0f, 50.0f));
+	m_Player->AddComponent<PlayerScript>();
+	//SpriteRenderer* sr = m_Player->AddComponent<SpriteRenderer>();
+	//sr->SetSize(100.0f, 100.0f);
+	////m_Player->AddComponent<PlayerScript>();
+	//Texture* bgtex = ResourceManager::Find<Texture>(L"BG");
+	//sr->SetTexture(bgtex);
+
+	Texture* catTexture = ResourceManager::Find<Texture>(L"Cat");
+	Animator* animator = m_Player->AddComponent<Animator>();
+	animator->CreateAnimation(L"CatFrontMove", catTexture, Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f),
+		Vector2::Zero, 4, 0.1f);
+	animator->PlayAnimation(L"CatFrontMove");
 
 	GameObject* sun = Instantiate<GameObject>(eLayerType::Object, Vector2(400.0f, .0f));
 	SpriteRenderer* sr2 = sun->AddComponent<SpriteRenderer>();

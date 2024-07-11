@@ -8,6 +8,7 @@
 #include <map>
 #include "Math.h"
 #include "Enums.h"
+#include "Time.h"
 #include <cassert>
 #include <dwrite.h>
 #include <dxgi1_4.h>

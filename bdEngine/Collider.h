@@ -10,7 +10,7 @@ public:
 	virtual void Initialize();
 	virtual void Update();
 	virtual void LateUpdate();
-	virtual void Render(HDC hdc);
+	virtual void Render(ID2D1RenderTarget* pRenderTarget);
 
 	virtual void OnCollisionEnter(Collider* other);
 	virtual void OnCollisionStay(Collider* other);

@@ -29,7 +29,7 @@ void Collider::LateUpdate()
 {
 }
 
-void Collider::Render(HDC hdc)
+void Collider::Render(ID2D1RenderTarget* pRenderTarget)
 {
 }
 

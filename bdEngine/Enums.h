@@ -27,6 +27,7 @@ enum class eResourceType
 {
 	Texture,
 	AudioClip,
+	Animation,
 	Prefab,
 	End,
 };
