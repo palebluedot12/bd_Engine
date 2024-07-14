@@ -22,6 +22,7 @@ public:
 	void SetPosition(Vector2 pos) { m_Position.x = pos.x; m_Position.y = pos.y; }
 	Vector2 GetPosition() { return m_Position; }
 	float GetRotation() { return m_Rotation; }
+	void SetRotation(float rotate) { m_Rotation = rotate; }
 	Vector2 GetScale() { return m_Scale; }
 	void SetScale(Vector2 scale) { m_Scale = scale; }
 

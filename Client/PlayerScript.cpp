@@ -3,6 +3,7 @@
 #include "..\\bdEngine\\Transform.h"
 #include "..\\bdEngine\\GameObject.h"
 #include "..\\bdEngine\\Time.h"
+#include "..\\bdEngine\\Animator.h"
 
 PlayerScript::PlayerScript()
 {
@@ -18,74 +19,89 @@ void PlayerScript::Initialize()
 
 void PlayerScript::Update()
 {
-	//if (Input::GetKey(eKeyCode::Right))
-	//{
-	//	Transform* tr = GetOwner()->GetComponent<Transform>();
-	//	Vector2 pos = tr->GetPosition();
-	//	pos.x += 150.0f * Time::DeltaTime();
-	//	tr->SetPosition(pos);
-	//}
-	//if (Input::GetKey(eKeyCode::Left))
-	//{
-	//	Transform* tr = GetOwner()->GetComponent<Transform>();
-	//	Vector2 pos = tr->GetPosition();
-	//	pos.x -= 150.0f * Time::DeltaTime();
-
-	//	tr->SetPosition(pos);
-	//}
-	//if (Input::GetKey(eKeyCode::Up))
-	//{
-	//	Transform* tr = GetOwner()->GetComponent<Transform>();
-	//	Vector2 pos = tr->GetPosition();
-	//	pos.y -= 100.0f * Time::DeltaTime();
-	//	tr->SetPosition(pos);
-	//}
-	//if (Input::GetKey(eKeyCode::Down))
-	//{
-	//	Transform* tr = GetOwner()->GetComponent<Transform>();
-	//	Vector2 pos = tr->GetPosition();
-	//	pos.y += 100.0f * Time::DeltaTime();
-
-	//	tr->SetPosition(pos);
-	//}
-
-	Vector2 moveDirection = Vector2::Zero;
-
-	if (Input::GetKey(eKeyCode::Right))
-		moveDirection.x += 1.0f;
-	if (Input::GetKey(eKeyCode::Left))
-		moveDirection.x -= 1.0f;
-	if (Input::GetKey(eKeyCode::Up))
-		moveDirection.y -= 1.0f;
-	if (Input::GetKey(eKeyCode::Down))
-		moveDirection.y += 1.0f;
-
-	if (moveDirection != Vector2::Zero)
+	if (m_Animator == nullptr)
 	{
-		moveDirection.Normalize();
-		Vector2 velocity = moveDirection * 150.0f * Time::DeltaTime();
-
-		if (m_Camera)
-		{
-			m_Camera->Move(velocity);
-		}
-		else
-		{
-			Transform* tr = GetOwner()->GetComponent<Transform>();
-			Vector2 pos = tr->GetPosition();
-			pos += velocity;
-			tr->SetPosition(pos);
-		}
+		m_Animator = GetOwner()->GetComponent<Animator>();
 	}
 
-
-
+	switch (m_State)
+	{
+	case PlayerScript::eState::SitDown:
+		SitDown();
+		break;
+	case PlayerScript::eState::Walk:
+		Move();
+		break;
+	case PlayerScript::eState::Sleep:
+		break;
+	case PlayerScript::eState::Attack:
+		break;
+	default:
+		break;
+	}
 }
 
 void PlayerScript::LateUpdate()
 {
+
 }
 
 void PlayerScript::Render(ID2D1RenderTarget* pRenderTarget)
 {
+}
+
+void PlayerScript::SitDown()
+{
+	if (Input::GetKey(eKeyCode::Right))
+	{
+		m_State = PlayerScript::eState::Walk;
+		m_Animator->PlayAnimation(L"RightWalk");
+	}
+	if (Input::GetKey(eKeyCode::Left))
+	{
+		m_State = PlayerScript::eState::Walk;
+		m_Animator->PlayAnimation(L"LeftWalk");
+	}
+	if (Input::GetKey(eKeyCode::Up))
+	{
+		m_State = PlayerScript::eState::Walk;
+		m_Animator->PlayAnimation(L"UpWalk");
+	}
+	if (Input::GetKey(eKeyCode::Down))
+	{
+		m_State = PlayerScript::eState::Walk;
+		m_Animator->PlayAnimation(L"DownWalk");
+	}
+}
+
+void PlayerScript::Move()
+{
+	Transform* tr = GetOwner()->GetComponent<Transform>();
+	Vector2 pos = tr->GetPosition();
+
+	if (Input::GetKey(eKeyCode::Right))
+	{
+		pos.x += 100.0f * Time::DeltaTime();
+	}
+	if (Input::GetKey(eKeyCode::Left))
+	{
+		pos.x -= 100.0f * Time::DeltaTime();
+	}
+	if (Input::GetKey(eKeyCode::Up))
+	{
+		pos.y -= 100.0f * Time::DeltaTime();
+	}
+	if (Input::GetKey(eKeyCode::Down))
+	{
+		pos.y += 100.0f * Time::DeltaTime();
+	}
+
+	tr->SetPosition(pos);
+
+	if (Input::GetKeyUp(eKeyCode::Right) || Input::GetKeyUp(eKeyCode::Left)
+		|| Input::GetKeyUp(eKeyCode::Up) || Input::GetKeyUp(eKeyCode::Down))
+	{
+		m_State = PlayerScript::eState::SitDown;
+		m_Animator->PlayAnimation(L"SitDown", false);
+	}
 }

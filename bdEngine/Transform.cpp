@@ -2,6 +2,7 @@
 
 Transform::Transform()
 	: Component(eComponentType::Transform)
+	, m_Scale(Vector2(1.0f, 1.0f))
 {
 }
 

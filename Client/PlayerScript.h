@@ -5,6 +5,17 @@
 class PlayerScript : public Script
 {
 public:
+
+	// FSM
+	enum class eState
+	{
+		SitDown,
+		Walk,
+		Sleep,
+		Attack
+	};
+
+
 	PlayerScript();
 	~PlayerScript();
 
@@ -16,6 +27,12 @@ public:
 	void SetCamera(Camera* camera) { m_Camera = camera; }
 
 private:
+	void SitDown();
+	void Move();
+
+private:
 	Camera* m_Camera;
+	eState m_State;
+	class Animator* m_Animator;
 };
 

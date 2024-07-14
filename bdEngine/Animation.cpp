@@ -50,13 +50,12 @@ void Animation::Render(ID2D1RenderTarget* pRenderTarget)
     Transform* tr = gameObj->GetComponent<Transform>();
     Vector2 pos = tr->GetPosition();
     float rot = tr->GetRotation();
+    Vector2 scale = tr->GetScale();
 
-    if (mainCamera)
-        pos = mainCamera->CalculatePosition(pos);
+    //if (mainCamera)
+    //    pos = mainCamera->CalculatePosition(pos);
 
     Sprite sprite = m_AnimationSheet[m_Index];
-
-    // D2D 비트맵 가져오기
     ID2D1Bitmap* pBitmap = m_Texture->GetBitmap();
     if (pBitmap == nullptr)
     {
@@ -64,16 +63,33 @@ void Animation::Render(ID2D1RenderTarget* pRenderTarget)
         return;
     }
 
-    //// 렌더링 상태 저장
-    //pRenderTarget->SaveDrawingState(nullptr);
+  
+    //D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
+    //transform = transform * D2D1::Matrix3x2F::Translation(-pos.x, -pos.y);
+    //transform = transform * D2D1::Matrix3x2F::Rotation(rot);
+    //transform = transform * D2D1::Matrix3x2F::Scale(scale.x, scale.y);
+    //transform = transform * D2D1::Matrix3x2F::Translation(pos.x, pos.y);
 
-    // 변환 설정
-    D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Translation(pos.x, pos.y) *
-        D2D1::Matrix3x2F::Rotation(rot) *
-        //D2D1::Matrix3x2F::Scale() *
-        D2D1::Matrix3x2F::Translation(-pos.x, -pos.y);
+    //pRenderTarget->SetTransform(transform);
 
-    pRenderTarget->SetTransform(transform);
+      // 카메라 변환 적용
+    D2D1::Matrix3x2F cameraTransform = D2D1::Matrix3x2F::Identity();
+    if (mainCamera)
+    {
+        cameraTransform = mainCamera->GetViewMatrix();
+    }
+
+    // 오브젝트 변환 설정
+    D2D1::Matrix3x2F objectTransform = D2D1::Matrix3x2F::Identity();
+    objectTransform = objectTransform * D2D1::Matrix3x2F::Translation(-sprite.size.x / 2, -sprite.size.y / 2);
+    objectTransform = objectTransform * D2D1::Matrix3x2F::Scale(scale.x, scale.y);
+    objectTransform = objectTransform * D2D1::Matrix3x2F::Rotation(rot);
+    objectTransform = objectTransform * D2D1::Matrix3x2F::Translation(pos.x, pos.y);
+
+    // 최종 변환 매트릭스 계산 (카메라 * 오브젝트)
+    D2D1::Matrix3x2F finalTransform = objectTransform * cameraTransform;
+
+    pRenderTarget->SetTransform(finalTransform);
 
     // 소스 및 대상 사각형 정의
     D2D1_RECT_F srcRect = D2D1::RectF(
@@ -92,14 +108,15 @@ void Animation::Render(ID2D1RenderTarget* pRenderTarget)
     pRenderTarget->DrawBitmap(pBitmap, destRect, 1.0f,
         D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
 
+    pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+
+
     // 디버그용 사각형 그리기 (필요한 경우)
     // ID2D1SolidColorBrush* pBrush;
     // pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Red), &pBrush);
     // pRenderTarget->DrawRectangle(D2D1::RectF(pos.x, pos.y, pos.x + 10, pos.y + 10), pBrush);
     // pBrush->Release();
 
-    // 렌더링 상태 복원
-    //pRenderTarget->RestoreDrawingState(nullptr);
 }
 
 void Animation::CreateAnimation(const std::wstring& name, Texture* spriteSheet

@@ -26,7 +26,7 @@ void BoxCollider2D::Render(ID2D1RenderTarget* pRenderTarget)
 	Transform* tr = GetOwner()->GetComponent<Transform>();
 	Vector2 pos = tr->GetPosition();
     Vector2 offset = GetOffset();
-    //Vector2 size = GetSize() * 500; // Scale size by 100
+    //Vector2 size = tr->GetScale() * 500; // Scale size by 100
 
 	if (mainCamera)
 		pos = mainCamera->CalculatePosition(pos);

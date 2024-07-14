@@ -43,6 +43,8 @@ void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
 
     Transform* tr = GetOwner()->GetComponent<Transform>();
     Vector2 pos = tr->GetPosition();
+    float rot = tr->GetRotation();
+
     pos = mainCamera->CalculatePosition(pos);                   // 카메라 좌표 적용
 
     ID2D1Bitmap* pBitmap = m_Texture->GetBitmap();

@@ -31,28 +31,41 @@ void PlayScene::Initialize()
 {
 	//RenderManager::Get()->CreateRandomEarths(300);
 
-	// Main Camera
+	// 카메라 오브젝트 생성
 	GameObject* cameraObj = Instantiate<GameObject>(eLayerType::None);
 	Camera* cameraComp = cameraObj->AddComponent<Camera>();
 	mainCamera = cameraComp;
-	//camera->AddComponent<PlayerScript>();
-	PlayerScript* cameraScript = cameraObj->AddComponent<PlayerScript>();
-	cameraScript->SetCamera(cameraComp);
 
-	m_Player = Instantiate<Player>
-		(eLayerType::Player, Vector2(300.0f, 50.0f));
-	m_Player->AddComponent<PlayerScript>();
-	//SpriteRenderer* sr = m_Player->AddComponent<SpriteRenderer>();
-	//sr->SetSize(100.0f, 100.0f);
-	////m_Player->AddComponent<PlayerScript>();
-	//Texture* bgtex = ResourceManager::Find<Texture>(L"BG");
-	//sr->SetTexture(bgtex);
+	// 플레이어 생성
+	Player* m_Player;
+	m_Player = Instantiate<Player>(eLayerType::Player, Vector2(300.0f, 50.0f));
+	PlayerScript* playerScript = m_Player->AddComponent<PlayerScript>();
+	
+	// 카메라만 따로 움직일 수 있게
+	//playerScript->SetCamera(cameraComp);
+
+	// 카메라가 특정 오브젝트를 따라다니게
+	cameraComp->SetTarget(m_Player);
 
 	Texture* catTexture = ResourceManager::Find<Texture>(L"Cat");
 	Animator* animator = m_Player->AddComponent<Animator>();
-	animator->CreateAnimation(L"CatFrontMove", catTexture, Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f),
-		Vector2::Zero, 4, 0.1f);
-	animator->PlayAnimation(L"CatFrontMove");
+	animator->CreateAnimation(L"DownWalk", catTexture,
+		Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+	animator->CreateAnimation(L"RightWalk", catTexture,
+		Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+	animator->CreateAnimation(L"UpWalk", catTexture,
+		Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+	animator->CreateAnimation(L"LeftWalk", catTexture,
+		Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+	animator->CreateAnimation(L"SitDown", catTexture,
+		Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+	animator->CreateAnimation(L"Grooming", catTexture,
+		Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+
+	animator->PlayAnimation(L"SitDown", false);
+	
+	// 왜 전부 커짐?
+	//m_Player->GetComponent<Transform>()->SetScale(Vector2(1.0f, 1.0f));
 
 	GameObject* sun = Instantiate<GameObject>(eLayerType::Object, Vector2(400.0f, .0f));
 	SpriteRenderer* sr2 = sun->AddComponent<SpriteRenderer>();
