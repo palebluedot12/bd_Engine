@@ -43,6 +43,12 @@
     <ClInclude Include="PlayerScript.h">
       <Filter>03. Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="ChickenScript.h">
+      <Filter>03. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Chicken.h">
+      <Filter>02. Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -65,6 +71,12 @@
     </ClCompile>
     <ClCompile Include="PlayerScript.cpp">
       <Filter>03. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="ChickenScript.cpp">
+      <Filter>03. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Chicken.cpp">
+      <Filter>02. Contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

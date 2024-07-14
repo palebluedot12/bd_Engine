@@ -10,17 +10,18 @@
 #include "..\\bdEngine\\Texture.h"
 #include "..\\bdEngine\\Camera.h"
 #include "PlayerScript.h"
+#include "ChickenScript.h"
 #include "TitleScene.h"
 #include "Player.h"
 #include "..\\bdEngine\\CommonInclude.h"
 #include "..\\bdEngine\\BoxCollider2D.h"
 #include "..\\bdEngine\\CircleCollider2D.h"
 #include "..\\bdEngine\\Animator.h"
-
-
+#include "Chicken.h"
 
 PlayScene::PlayScene()
 {
+
 }
 
 PlayScene::~PlayScene()
@@ -37,7 +38,6 @@ void PlayScene::Initialize()
 	mainCamera = cameraComp;
 
 	// 플레이어 생성
-	Player* m_Player;
 	m_Player = Instantiate<Player>(eLayerType::Player, Vector2(300.0f, 50.0f));
 	PlayerScript* playerScript = m_Player->AddComponent<PlayerScript>();
 	
@@ -66,6 +66,22 @@ void PlayScene::Initialize()
 	
 	// 왜 전부 커짐?
 	//m_Player->GetComponent<Transform>()->SetScale(Vector2(1.0f, 1.0f));
+
+	Chicken* chicken = Instantiate<Chicken>(eLayerType::Player, Vector2(400.0f, 50.0f));
+	ChickenScript* chickenScript = chicken->AddComponent<ChickenScript>();
+	chickenScript->SetPlayScene(this);
+	Texture* ckTex = ResourceManager::Find<Texture>(L"Chicken");
+	Animator* ckAnimator = chicken->AddComponent<Animator>();
+	ckAnimator->CreateAnimation(L"RightWalk", ckTex
+		, Vector2(0.0f, 16.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 4, 0.1f);
+	ckAnimator->CreateAnimation(L"LeftWalk", ckTex
+		, Vector2(0.0f, 48.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 4, 0.1f);
+	ckAnimator->CreateAnimation(L"LeftSit", ckTex
+		, Vector2(0.0f, 64.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 2, 0.1f);
+	ckAnimator->CreateAnimation(L"Attack", ckTex
+		, Vector2(0.0f, 96.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 4, 0.1f);
+
+	ckAnimator->PlayAnimation(L"LeftSit", false);
 
 	GameObject* sun = Instantiate<GameObject>(eLayerType::Object, Vector2(400.0f, .0f));
 	SpriteRenderer* sr2 = sun->AddComponent<SpriteRenderer>();

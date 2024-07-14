@@ -81,6 +81,11 @@ struct Vector2
         return Vector2(x * scalar, y * scalar);
     }
 
+    float Length() const
+    {
+        return std::sqrt(x * x + y * y);
+    }
+
     // Scalar 곱셈의 교환법칙을 위한 전역 함수
     friend Vector2 operator*(float scalar, const Vector2& vec);
 

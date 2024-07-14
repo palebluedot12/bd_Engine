@@ -16,5 +16,8 @@ public:
 	virtual void OnExit() override;
 
 private:
-	//class Player* m_Player;
+	class Player* m_Player;
+
+public:
+	Player* GetPlayer() const { return m_Player; }
 };
