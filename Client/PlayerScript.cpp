@@ -104,4 +104,10 @@ void PlayerScript::Move()
 		m_State = PlayerScript::eState::SitDown;
 		m_Animator->PlayAnimation(L"SitDown", false);
 	}
+
+	OutputDebugStringW(L"Player Position: ");
+	OutputDebugStringW(std::to_wstring(tr->GetPosition().x).c_str());
+	OutputDebugStringW(L", ");
+	OutputDebugStringW(std::to_wstring(tr->GetPosition().y).c_str());
+	OutputDebugStringW(L"\n");
 }

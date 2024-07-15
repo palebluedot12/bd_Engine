@@ -21,7 +21,6 @@
 
 PlayScene::PlayScene()
 {
-
 }
 
 PlayScene::~PlayScene()
@@ -38,7 +37,7 @@ void PlayScene::Initialize()
 	mainCamera = cameraComp;
 
 	// 플레이어 생성
-	m_Player = Instantiate<Player>(eLayerType::Player, Vector2(300.0f, 50.0f));
+	m_Player = Instantiate<Player>(eLayerType::Player, Vector2(784.0f, 434.0f));
 	PlayerScript* playerScript = m_Player->AddComponent<PlayerScript>();
 	
 	// 카메라만 따로 움직일 수 있게
@@ -63,11 +62,9 @@ void PlayScene::Initialize()
 		Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
 
 	animator->PlayAnimation(L"SitDown", false);
-	
-	// 왜 전부 커짐?
-	//m_Player->GetComponent<Transform>()->SetScale(Vector2(1.0f, 1.0f));
+	m_Player->GetComponent<Transform>()->SetScale(Vector2(3.0f, 3.0f));
 
-	Chicken* chicken = Instantiate<Chicken>(eLayerType::Player, Vector2(400.0f, 50.0f));
+	Chicken* chicken = Instantiate<Chicken>(eLayerType::Player, Vector2(200.0f, 50.0f));
 	ChickenScript* chickenScript = chicken->AddComponent<ChickenScript>();
 	chickenScript->SetPlayScene(this);
 	Texture* ckTex = ResourceManager::Find<Texture>(L"Chicken");
@@ -82,15 +79,16 @@ void PlayScene::Initialize()
 		, Vector2(0.0f, 96.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 4, 0.1f);
 
 	ckAnimator->PlayAnimation(L"LeftSit", false);
+	chicken->GetComponent<Transform>()->SetScale(Vector2(3.0f, 3.0f));
 
-	GameObject* sun = Instantiate<GameObject>(eLayerType::Object, Vector2(400.0f, .0f));
+	GameObject* sun = Instantiate<GameObject>(eLayerType::Object, Vector2(500.0f, 300.0f));
 	SpriteRenderer* sr2 = sun->AddComponent<SpriteRenderer>();
 	sr2->SetSize(500.0f, 500.0f);
 	Texture* bg2tex = ResourceManager::Find<Texture>(L"Sun");
 	sr2->SetTexture(bg2tex);
 	BoxCollider2D* sunCol = sun->AddComponent<BoxCollider2D>();
-	sunCol->SetOffset(Vector2(150.0f, -50.0f));
 
+	// 별 100개
 	for (int i = 0; i < 500; ++i)
 	{
 		float randomX = static_cast<float>(rand() % 5000 - 2500); 

@@ -9,12 +9,14 @@ public:
 	~Camera();
 
 	Vector2 CalculatePosition(Vector2 pos); //{ return pos - m_Distance; }; 
-	void SetTarget(GameObject* target) { m_Target = target; }
+	//void SetTarget(GameObject* target) { m_Target = target; }
+	void SetTarget(GameObject* target);
 	void Move(const Vector2& offset);
 	void UpdateViewMatrix();
-	D2D1::Matrix3x2F GetViewMatrix() const { return m_ViewMatrix; }
+	//D2D1::Matrix3x2F GetViewMatrix() const { return m_ViewMatrix; }
 	Vector2 GetLookPosition() const { return m_LookPosition; }
 	Vector2 GetResolution() const { return m_Resolution; }
+	void SetOffset(const Vector2& offset) { m_Offset = offset; }
 
 	void Initialize() override;
 	void Update() override;
@@ -25,6 +27,23 @@ public:
 	const std::vector<GameObject*>& GetVisibleObjects() const { return m_VisibleObjects; }
 
 
+	Vector2 WorldToScreenPoint(const Vector2& worldPos)
+	{
+		Vector2 viewPos = (worldPos - m_LookPosition) * m_Zoom;
+		return viewPos + GetViewportCenter();
+	}
+
+	Vector2 GetViewportCenter() const
+	{
+		// 뷰포트 크기의 절반을 반환
+		return Vector2(1600.0f / 2.0f, 900.0f / 2.0f);
+	}
+
+	D2D1::Matrix3x2F GetViewMatrix() const
+	{
+		return m_ViewMatrix;
+	}
+
 
 private:
 	//std::vector<GameObject*> mGameObjects;
@@ -34,6 +53,7 @@ private:
 	Vector2 m_LookPosition;			// 카메라가 바라보고있는 좌표
 	D2D1::Matrix3x2F m_ViewMatrix;
 	float m_Zoom;
+	Vector2 m_Offset;
 
 	std::vector<GameObject*> m_VisibleObjects;
 

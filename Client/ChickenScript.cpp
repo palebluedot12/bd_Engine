@@ -27,8 +27,13 @@ void ChickenScript::Initialize()
 
 void ChickenScript::Update()
 {
-    if (!m_Player || !m_Animator)
+    if (!m_Player)
         return;
+
+    if (m_Animator == nullptr)
+    {
+        m_Animator = GetOwner()->GetComponent<Animator>();
+    }
 
     UpdateState();
 
@@ -52,15 +57,15 @@ void ChickenScript::UpdateState()
     Vector2 chickenPos = GetOwner()->GetComponent<Transform>()->GetPosition();
     float distance = (playerPos - chickenPos).Length();
 
-    if (distance > 500.0f)
+    if (distance > 300.0f)
     {
         m_State = eState::SitDown;
     }
-    else if (distance > 100.0f && distance <= 300.0f)
+    else if (distance > 10.0f && distance <= 300.0f)
     {
         m_State = eState::Chase;
     }
-    else if (distance <= 100.0f)
+    else if (distance <= 10.0f)
     {
         m_State = eState::Attack;
     }
@@ -73,7 +78,7 @@ void ChickenScript::Chase()
     Vector2 direction = (playerPos - chickenPos).Normalized();
 
     Transform* tr = GetOwner()->GetComponent<Transform>();
-    Vector2 newPos = chickenPos + direction * 80.0f * Time::DeltaTime();
+    Vector2 newPos = chickenPos + direction * 70.0f * Time::DeltaTime();
     tr->SetPosition(newPos);
 
     if (direction.x > 0)
@@ -88,12 +93,7 @@ void ChickenScript::Chase()
 
 void ChickenScript::Attack()
 {
-    m_AttackTimer += Time::DeltaTime();
-    if (m_AttackTimer >= 1.0f)
-    {
-        m_Animator->PlayAnimation(L"Attack", false);
-        m_AttackTimer = 0.0f;
-    }
+     m_Animator->PlayAnimation(L"Attack", true);  
 }
 
 void ChickenScript::LateUpdate()
