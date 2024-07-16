@@ -7,6 +7,7 @@
 #include "..\\bdEngine\\Object.h"
 #include "..\\bdEngine\\RenderManager.h"
 #include "..\\bdEngine\\ResourceManager.h"
+#include "..\\bdEngine\\CollisionManager.h"
 #include "..\\bdEngine\\Texture.h"
 #include "..\\bdEngine\\Camera.h"
 #include "PlayerScript.h"
@@ -29,7 +30,7 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initialize()
 {
-	//RenderManager::Get()->CreateRandomEarths(300);
+	CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Object, true);
 
 	// 카메라 오브젝트 생성
 	GameObject* cameraObj = Instantiate<GameObject>(eLayerType::None);
@@ -102,7 +103,9 @@ void PlayScene::Initialize()
 
 		Texture* starTexture = ResourceManager::Find<Texture>(L"Star");
 		srStar->SetTexture(starTexture);
-		srStar->SetAlpha(0.3f);
+		srStar->SetAlpha(0.5f);
+
+		BoxCollider2D* starCol = star->AddComponent<BoxCollider2D>();
 	}
 
 	

@@ -16,7 +16,7 @@ public:
 
 	void SetTexture(Texture* texture) { m_Texture = texture; }
 	void SetSize(float x, float y) { m_Size.x = x; m_Size.y = y; m_UseCustomSize = true; }
-	Vector2 GetSize() const { return m_Size; }
+	Vector2 GetSize() const { return renderSize; }
 	void SetAlpha(float alpha) { m_Alpha = alpha; }
 
 private:
@@ -24,5 +24,6 @@ private:
 	Texture* m_Texture;
 	bool m_UseCustomSize;
 	float m_Alpha = 1.0f;
+	Vector2 renderSize;
 
 };

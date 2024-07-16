@@ -12,3 +12,4 @@
 #include <cassert>
 #include <dwrite.h>
 #include <dxgi1_4.h>
+#include <bitset>

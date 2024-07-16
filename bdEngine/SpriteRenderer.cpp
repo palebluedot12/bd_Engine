@@ -31,10 +31,6 @@ void SpriteRenderer::LateUpdate()
 
 void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
 {
-	//assert(m_pBitmap != nullptr);
-	////pRenderTarget->SetTransform(m_WorldTransform);
-	//pRenderTarget->DrawBitmap(m_pBitmap);
-
     if (m_Texture == nullptr)
     {
         assert(false && "Texture NULL");
@@ -44,8 +40,7 @@ void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
     Transform* tr = GetOwner()->GetComponent<Transform>();
     Vector2 pos = tr->GetPosition();
     float rot = tr->GetRotation();
-
-    pos = mainCamera->CalculatePosition(pos);                   // 카메라 좌표 적용
+    Vector2 scale = tr->GetScale();
 
     ID2D1Bitmap* pBitmap = m_Texture->GetBitmap();
     if (pBitmap == nullptr)
@@ -55,37 +50,35 @@ void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
     }
 
     D2D1_SIZE_F originalSize = pBitmap->GetSize();
-    Vector2 renderSize;
+    renderSize = m_UseCustomSize ? m_Size : Vector2(originalSize.width, originalSize.height);
 
-    if (m_UseCustomSize)
-    {
-        renderSize = m_Size;
-    }
-    else
-    {
-        renderSize = Vector2(originalSize.width, originalSize.height);
-    }
+    // 월드 좌표를 스크린 좌표로 변환
+    Vector2 screenPos = mainCamera->WorldToScreenPoint(pos);
 
+    // 변환 행렬 생성
+    D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
+    transform = transform * D2D1::Matrix3x2F::Translation(-renderSize.x / 2, -renderSize.y / 2);
+    transform = transform * D2D1::Matrix3x2F::Scale(scale.x, scale.y);
+    transform = transform * D2D1::Matrix3x2F::Rotation(rot);
+    transform = transform * D2D1::Matrix3x2F::Translation(screenPos.x, screenPos.y);
 
-    D2D1_RECT_F destinationRect = D2D1::RectF(
-        pos.x,
-        pos.y,
-        pos.x + renderSize.x,
-        pos.y + renderSize.y
-    );
-
+    // 현재 변환 행렬 저장
     D2D1::Matrix3x2F currentTransform;
     pRenderTarget->GetTransform(&currentTransform);
 
-    pRenderTarget->SetTransform(mainCamera->GetViewMatrix() * currentTransform);
+    // 새로운 변환 행렬 적용
+    pRenderTarget->SetTransform(transform * currentTransform);
 
+    // 스프라이트 그리기
+    D2D1_RECT_F destinationRect = D2D1::RectF(0, 0, renderSize.x, renderSize.y);
     pRenderTarget->DrawBitmap(
         pBitmap,
         destinationRect,
-        m_Alpha,  // Opacity
+        m_Alpha,
         D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,
-        D2D1::RectF(0, 0, originalSize.width, originalSize.height)  // Source rectangle
+        D2D1::RectF(0, 0, originalSize.width, originalSize.height)
     );
 
-    pRenderTarget->SetTransform(currentTransform);  // 원래 변환 행렬로 복원
+    // 원래 변환 행렬로 복원
+    pRenderTarget->SetTransform(currentTransform);
 }

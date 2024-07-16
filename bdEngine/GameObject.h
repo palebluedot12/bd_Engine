@@ -3,9 +3,21 @@
 #include "Component.h"
 #include "SpriteRenderer.h"
 
+void Destroy(GameObject* gameObject);
+
 class GameObject
 {
 public:
+	enum class eState
+	{
+		Active,
+		Paused,			// 화면에는 안뜨지만 메모리에 남겨는 둠
+		Dead,			
+		End
+	};
+
+	friend void Destroy(GameObject* gameObject);
+
 	GameObject();
 	~GameObject();
 
@@ -41,9 +53,20 @@ public:
 		return component;
 	}
 
-private:
-	void InitializeTransform();
+	eState GetState() { return m_State; }
+	void SetActive(bool power)
+	{
+		if (power == true) m_State = eState::Active;
+		if (power == false) m_State = eState::Paused;
+	}
+	bool IsActive() { return m_State == eState::Active; }
+	bool IsDead() { return m_State == eState::Dead; }
 
 private:
+	void InitializeTransform();
+	void death() { m_State = eState::Dead; }
+
+private:
+	eState m_State;
 	std::vector<Component*> mComponents;
 };

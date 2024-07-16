@@ -4,6 +4,7 @@
 #include "Transform.h"
 
 GameObject::GameObject()
+	: m_State(eState::Active)
 {
 	mComponents.resize((UINT)eComponentType::End);
 	InitializeTransform();
@@ -64,4 +65,10 @@ void GameObject::Render(ID2D1RenderTarget* pRenderTarget)
 void GameObject::InitializeTransform()
 {
 	AddComponent<Transform>();
+}
+
+void Destroy(GameObject* gameObject)
+{
+	if (gameObject != nullptr)
+		gameObject->death();
 }
