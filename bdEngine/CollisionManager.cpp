@@ -5,6 +5,8 @@
 #include "Collider.h"
 
 std::bitset<(UINT)eLayerType::Max> CollisionManager::mCollisionLayerMatrix[(UINT)eLayerType::Max] = {};
+static std::unordered_map<UINT64, bool> m_CollisionMap = {};
+
 
 void CollisionManager::Initialize()
 {
