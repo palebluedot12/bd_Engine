@@ -81,7 +81,7 @@ void PlayScene::Initialize()
 
 	ckAnimator->PlayAnimation(L"LeftSit", false);
 	chicken->GetComponent<Transform>()->SetScale(Vector2(3.0f, 3.0f));
-	BoxCollider2D* ckCol = chicken->AddComponent<BoxCollider2D>();
+	BoxCollider2D* ckCol = chicken->AddComponent<BoxCollider2D>();	// BoxCollider에서 SpriteRenderer Box를 가져와서 지금 오류나는 중
 
 	GameObject* sun = Instantiate<GameObject>(eLayerType::Object, Vector2(500.0f, 300.0f));
 	SpriteRenderer* sr2 = sun->AddComponent<SpriteRenderer>();
