@@ -81,6 +81,7 @@ void PlayScene::Initialize()
 
 	ckAnimator->PlayAnimation(L"LeftSit", false);
 	chicken->GetComponent<Transform>()->SetScale(Vector2(3.0f, 3.0f));
+	BoxCollider2D* ckCol = chicken->AddComponent<BoxCollider2D>();
 
 	GameObject* sun = Instantiate<GameObject>(eLayerType::Object, Vector2(500.0f, 300.0f));
 	SpriteRenderer* sr2 = sun->AddComponent<SpriteRenderer>();
