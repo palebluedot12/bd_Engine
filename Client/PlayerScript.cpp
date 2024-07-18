@@ -13,9 +13,12 @@ PlayerScript::~PlayerScript()
 {
 }
 
-void PlayerScript::Initialize()
+void PlayerScript::Start()
 {
+	co = gameObject->AddComponent<BoxCollider2D>();
+	co->size = { 25, 30 };
 }
+
 
 void PlayerScript::Update()
 {
@@ -105,9 +108,11 @@ void PlayerScript::Move()
 		m_Animator->PlayAnimation(L"SitDown", false);
 	}
 
-	OutputDebugStringW(L"Player Position: ");
-	OutputDebugStringW(std::to_wstring(tr->GetPosition().x).c_str());
-	OutputDebugStringW(L", ");
-	OutputDebugStringW(std::to_wstring(tr->GetPosition().y).c_str());
-	OutputDebugStringW(L"\n");
+	//OutputDebugStringW(L"Player Position: ");
+	//OutputDebugStringW(std::to_wstring(tr->GetPosition().x).c_str());
+	//OutputDebugStringW(L", ");
+	//OutputDebugStringW(std::to_wstring(tr->GetPosition().y).c_str());
+	//OutputDebugStringW(L"\n");
 }
+
+

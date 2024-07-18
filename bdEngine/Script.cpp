@@ -9,9 +9,9 @@ Script::~Script()
 {
 }
 
-void Script::Initialize()
-{
-}
+//void Script::Initialize()
+//{
+//}
 
 void Script::Update()
 {

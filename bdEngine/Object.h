@@ -19,12 +19,12 @@ static T* Instantiate(eLayerType type)
 }
 
 template <typename T>
-static T* Instantiate(eLayerType type, Vector2 position)
+static T* Instantiate(eLayerType type, Vector2 position, Texture* texture = nullptr, Vector2 size = Vector2::Zero, float alpha = 1.0f)
 {
 	T* gameObject = new T();
 	Scene* activeScene = SceneManager::GetActiveScene();
 	Layer* layer = activeScene->GetLayer(type);
-	layer->AddGameObject(gameObject);
+	layer->AddGameObject(gameObject, texture, size, alpha);
 
 	Transform* tr = gameObject->GetComponent<Transform>();
 	tr->SetPosition(position);

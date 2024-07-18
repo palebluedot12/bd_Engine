@@ -122,6 +122,8 @@ void CollisionManager::ColliderCollision(Collider* left, Collider* right)
 		//}
 
 		int a = 0;
+
+		OutputDebugStringW(L"collide!! \n");
 	}
 	else
 	{
@@ -146,9 +148,9 @@ bool CollisionManager::Intersect(Collider* left, Collider* right)
 	Vector2 leftPos = leftTr->GetPosition() + left->GetOffset();
 	Vector2 rightPos = rightTr->GetPosition() + right->GetOffset();
 
-	// size 1,1 일 기본크기가 100픽셀
-	Vector2 leftSize = left->GetSize() * 100.0f;
-	Vector2 rightSize = right->GetSize() * 100.0f;
+	// TODO : 사이즈 제대로 가져와야함
+	Vector2 leftSize = left->GetSize() * 50.0f;
+	Vector2 rightSize = right->GetSize() * 50.0f;
 
 	//AABB 충돌
 	if (fabs(leftPos.x - rightPos.x) < fabs(leftSize.x / 2.0f + rightSize.x / 2.0f)

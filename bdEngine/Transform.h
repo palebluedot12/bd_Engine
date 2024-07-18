@@ -25,10 +25,13 @@ public:
 	void SetRotation(float rotate) { m_Rotation = rotate; }
 	Vector2 GetScale() { return m_Scale; }
 	void SetScale(Vector2 scale) { m_Scale = scale; }
-
+	void SetSize(Vector2 size) { m_Size = size; }	
+	Vector2 GetSize() { return m_Size; }
+		
 
 private:
 	Vector2 m_Position;
 	float m_Rotation;
 	Vector2 m_Scale;
+	Vector2 m_Size;
 };

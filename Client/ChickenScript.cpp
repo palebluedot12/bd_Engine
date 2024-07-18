@@ -5,6 +5,7 @@
 #include "..\\bdEngine\\Time.h"
 #include "..\\bdEngine\\Animator.h"
 #include "PlayScene.h"
+#include "..\\bdEngine\\BoxCollider2D.h"
 
 ChickenScript::ChickenScript()
 	: m_State(ChickenScript::eState::SitDown)
@@ -17,13 +18,26 @@ ChickenScript::~ChickenScript()
 {
 }
 
-void ChickenScript::Initialize()
+void ChickenScript::Start()
 {
-	if (m_PlayScene)
-	{
-		m_Player = m_PlayScene->GetPlayer();
-	}
+    co = gameObject->AddComponent<BoxCollider2D>();
+    co->size = { 25, 25 };
+
+    if (m_PlayScene)
+    {
+        m_Player = m_PlayScene->GetPlayer();
+    }
 }
+
+//void ChickenScript::Initialize()
+//{
+//	if (m_PlayScene)
+//	{
+//		m_Player = m_PlayScene->GetPlayer();
+//	}
+//
+//   
+//}
 
 void ChickenScript::Update()
 {
@@ -105,6 +119,8 @@ void ChickenScript::Render(ID2D1RenderTarget* pRenderTarget)
 {
 
 }
+
+
 
 void ChickenScript::SitDown()
 {

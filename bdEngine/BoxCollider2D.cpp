@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "RenderManager.h"
 #include "Camera.h"
+#include <iostream>
+#include "Animator.h"
 
 
 BoxCollider2D::BoxCollider2D()
@@ -29,7 +31,12 @@ void BoxCollider2D::Render(ID2D1RenderTarget* pRenderTarget)
     Vector2 offset = GetOffset();
     Vector2 scale = tr->GetScale();
     float rotation = tr->GetRotation();
-    Vector2 size = GetOwner()->GetComponent<SpriteRenderer>()->GetSize();
+
+    // 애니메이션이면 따로 설정해주고, Sprite면 Transform 사이즈 가져오게끔...
+    if (GetOwner()->GetComponent<Animator>() == nullptr)
+    {
+        size = GetOwner()->GetComponent<Transform>()->GetSize(); 
+    }
 
     Vector2 screenPos = mainCamera->WorldToScreenPoint(pos);
 
@@ -50,5 +57,4 @@ void BoxCollider2D::Render(ID2D1RenderTarget* pRenderTarget)
 
     // 변환 행렬을 원래대로 돌려놓습니다.
     pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
-
 }

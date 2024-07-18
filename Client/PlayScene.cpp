@@ -30,95 +30,94 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initialize()
 {
+	// 누구랑 누구랑(어떤 레이어타입끼리) 충돌감지 켜놓을건지
 	CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Object, true);
 
-	// 카메라 오브젝트 생성
-	GameObject* cameraObj = Instantiate<GameObject>(eLayerType::None);
-	Camera* cameraComp = cameraObj->AddComponent<Camera>();
-	mainCamera = cameraComp;
-
-	// 플레이어 생성
-	m_Player = Instantiate<Player>(eLayerType::Player, Vector2(784.0f, 434.0f));
-	PlayerScript* playerScript = m_Player->AddComponent<PlayerScript>();
-	
-	// 카메라만 따로 움직일 수 있게
-	//playerScript->SetCamera(cameraComp);
-
-	// 카메라가 특정 오브젝트를 따라다니게
-	cameraComp->SetTarget(m_Player);
-
-	Texture* catTexture = ResourceManager::Find<Texture>(L"Cat");
-	Animator* animator = m_Player->AddComponent<Animator>();
-	animator->CreateAnimation(L"DownWalk", catTexture,
-		Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-	animator->CreateAnimation(L"RightWalk", catTexture,
-		Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-	animator->CreateAnimation(L"UpWalk", catTexture,
-		Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-	animator->CreateAnimation(L"LeftWalk", catTexture,
-		Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-	animator->CreateAnimation(L"SitDown", catTexture,
-		Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-	animator->CreateAnimation(L"Grooming", catTexture,
-		Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-
-	animator->PlayAnimation(L"SitDown", false);
-	m_Player->GetComponent<Transform>()->SetScale(Vector2(3.0f, 3.0f));
-
-	Chicken* chicken = Instantiate<Chicken>(eLayerType::Player, Vector2(200.0f, 50.0f));
-	ChickenScript* chickenScript = chicken->AddComponent<ChickenScript>();
-	chickenScript->SetPlayScene(this);
-	Texture* ckTex = ResourceManager::Find<Texture>(L"Chicken");
-	Animator* ckAnimator = chicken->AddComponent<Animator>();
-	ckAnimator->CreateAnimation(L"RightWalk", ckTex
-		, Vector2(0.0f, 16.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 4, 0.1f);
-	ckAnimator->CreateAnimation(L"LeftWalk", ckTex
-		, Vector2(0.0f, 48.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 4, 0.1f);
-	ckAnimator->CreateAnimation(L"LeftSit", ckTex
-		, Vector2(0.0f, 64.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 2, 0.1f);
-	ckAnimator->CreateAnimation(L"Attack", ckTex
-		, Vector2(0.0f, 96.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 4, 0.1f);
-
-	ckAnimator->PlayAnimation(L"LeftSit", false);
-	chicken->GetComponent<Transform>()->SetScale(Vector2(3.0f, 3.0f));
-	BoxCollider2D* ckCol = chicken->AddComponent<BoxCollider2D>();	// BoxCollider에서 SpriteRenderer Box를 가져와서 지금 오류나는 중
-
-	GameObject* sun = Instantiate<GameObject>(eLayerType::Object, Vector2(500.0f, 300.0f));
-	SpriteRenderer* sr2 = sun->AddComponent<SpriteRenderer>();
-	sr2->SetSize(500.0f, 500.0f);
-	Texture* bg2tex = ResourceManager::Find<Texture>(L"Sun");
-	sr2->SetTexture(bg2tex);
-	BoxCollider2D* sunCol = sun->AddComponent<BoxCollider2D>();
-
-	// 별 100개
-	for (int i = 0; i < 500; ++i)
+	// 플레이어 (카메라가 따라가게)
 	{
-		float randomX = static_cast<float>(rand() % 5000 - 2500); 
-		float randomY = static_cast<float>(rand() % 5000 - 2500);
-		Vector2 randomPosition(randomX, randomY);
+		GameObject* cameraObj = Instantiate<GameObject>(eLayerType::None);
+		Camera* cameraComp = cameraObj->AddComponent<Camera>();
+		mainCamera = cameraComp;
 
-		GameObject* star = Instantiate<GameObject>(eLayerType::Object, randomPosition);
+		m_Player = Instantiate<Player>(eLayerType::Player, Vector2(784.0f, 434.0f)); 		
+		m_Player->AddComponent<PlayerScript>();
 
-		SpriteRenderer* srStar = star->AddComponent<SpriteRenderer>();
-		srStar->SetSize(50.0f, 50.0f);
+		// 카메라만 따로 움직일 수 있게
+		//playerScript->SetCamera(cameraComp);
 
-		Texture* starTexture = ResourceManager::Find<Texture>(L"Star");
-		srStar->SetTexture(starTexture);
-		srStar->SetAlpha(0.5f);
+		// 카메라가 특정 오브젝트를 따라다니게
+		cameraComp->SetTarget(m_Player);
 
-		BoxCollider2D* starCol = star->AddComponent<BoxCollider2D>();
+		Texture* catTexture = ResourceManager::Find<Texture>(L"Cat");
+		Animator* animator = m_Player->AddComponent<Animator>();
+		animator->CreateAnimation(L"DownWalk", catTexture,
+			Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		animator->CreateAnimation(L"RightWalk", catTexture,
+			Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		animator->CreateAnimation(L"UpWalk", catTexture,
+			Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		animator->CreateAnimation(L"LeftWalk", catTexture,
+			Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		animator->CreateAnimation(L"SitDown", catTexture,
+			Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		animator->CreateAnimation(L"Grooming", catTexture,
+			Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+
+		animator->PlayAnimation(L"SitDown", false);
+		m_Player->GetComponent<Transform>()->SetScale(Vector2(3.0f, 3.0f));
 	}
 
-	
-	// 게임 오브젝트 생성후에 레이어와 게임오브젝트들의 init함수를 호출
+	//닭
+	{
+		Chicken* chicken = Instantiate<Chicken>(eLayerType::Player, Vector2(200.0f, 50.0f));
+		ChickenScript* chickenScript = chicken->AddComponent<ChickenScript>();
+		chickenScript->SetPlayScene(this);
+		Texture* ckTex = ResourceManager::Find<Texture>(L"Chicken");
+		Animator* ckAnimator = chicken->AddComponent<Animator>();
+		ckAnimator->CreateAnimation(L"RightWalk", ckTex
+			, Vector2(0.0f, 16.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 4, 0.1f);
+		ckAnimator->CreateAnimation(L"LeftWalk", ckTex
+			, Vector2(0.0f, 48.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 4, 0.1f);
+		ckAnimator->CreateAnimation(L"LeftSit", ckTex
+			, Vector2(0.0f, 64.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 2, 0.1f);
+		ckAnimator->CreateAnimation(L"Attack", ckTex
+			, Vector2(0.0f, 96.0f), Vector2(16.0f, 16.0f), Vector2::Zero, 4, 0.1f);
+
+		ckAnimator->PlayAnimation(L"LeftSit", false);
+		chicken->GetComponent<Transform>()->SetScale(Vector2(3.0f, 3.0f));
+	}
+
+	// 태양
+	{	
+		GameObject* sun = Instantiate<GameObject>(eLayerType::Object, Vector2(500.0f, 300.0f),
+			ResourceManager::Find<Texture>(L"Sun"),
+			Vector2(500.0f, 500.0f));
+		sun->AddComponent<BoxCollider2D>();
+	}
+
+	// 별 많이
+	{
+		for (int i = 0; i < 500; ++i)
+		{
+			float randomX = static_cast<float>(rand() % 5000 - 2500);
+			float randomY = static_cast<float>(rand() % 5000 - 2500);
+			Vector2 randomPosition(randomX, randomY);
+
+			GameObject* star = Instantiate<GameObject>(eLayerType::Object, randomPosition
+				, ResourceManager::Find<Texture>(L"Star")
+				, Vector2(50.0f, 50.0f)
+				, 0.5f);
+
+			star->AddComponent<BoxCollider2D>();
+		}
+	}
+
 	Scene::Initialize();
 }
 
 void PlayScene::Update()
 {
 	Scene::Update();
-	//RenderManager::Get()->UpdateAndRender();
-
 }
 
 void PlayScene::LateUpdate()
@@ -128,8 +127,6 @@ void PlayScene::LateUpdate()
 void PlayScene::Render(ID2D1RenderTarget* pRenderTarget)
 {
 	Scene::Render(pRenderTarget);
-	//RenderManager::Get()->UpdateAndRender();
-
 }
 
 void PlayScene::OnEnter()
@@ -138,6 +135,5 @@ void PlayScene::OnEnter()
 
 void PlayScene::OnExit()
 {
-	//Transform* tr = bg->GetComponent<Transform>();
-	//tr->SetPosition(Vector2(0, 0));
+
 }

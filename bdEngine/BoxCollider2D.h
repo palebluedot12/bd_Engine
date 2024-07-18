@@ -12,6 +12,9 @@ public:
 	virtual void LateUpdate();
 	virtual void Render(ID2D1RenderTarget* pRenderTarget);
 
+	Vector2 size;
+	Vector2 offset;
+
 private:
 
 };

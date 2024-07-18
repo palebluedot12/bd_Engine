@@ -106,6 +106,6 @@ void Camera::UpdateViewMatrix()
 	D2D1::Matrix3x2F scale = D2D1::Matrix3x2F::Scale(m_Zoom, m_Zoom);
 	m_ViewMatrix = scale * translation;
 
-	OutputDebugStringW((L"Camera Position: " + std::to_wstring(m_LookPosition.x)
-		+ L", " + std::to_wstring(m_LookPosition.y) + L"\n").c_str());
+	//OutputDebugStringW((L"Camera Position: " + std::to_wstring(m_LookPosition.x)
+	//	+ L", " + std::to_wstring(m_LookPosition.y) + L"\n").c_str());
 }

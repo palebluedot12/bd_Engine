@@ -1,6 +1,7 @@
 #pragma once
 #include "..\\bdEngine\\Script.h"
 #include "..\\bdEngine\\Camera.h"
+#include "..\\bdEngine\\BoxCollider2D.h"
 
 class PlayerScript : public Script
 {
@@ -19,7 +20,7 @@ public:
 	PlayerScript();
 	~PlayerScript();
 
-	void Initialize() override;
+	//void Initialize();
 	void Update() override;
 	void LateUpdate() override;
 	void Render(ID2D1RenderTarget* pRenderTarget) override;
@@ -29,10 +30,13 @@ public:
 private:
 	void SitDown();
 	void Move();
+	void Start();
 
 private:
 	Camera* m_Camera;
 	eState m_State;
 	class Animator* m_Animator;
-};
 
+public:
+	BoxCollider2D* co;                    // 렉트콜라이더 컴포넌트
+};

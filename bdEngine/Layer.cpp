@@ -1,4 +1,6 @@
 #include "Layer.h"
+#include "ResourceManager.h"
+#include "Transform.h"
 
 Layer::Layer()
 	: mGameObjects{}
@@ -60,10 +62,30 @@ void Layer::Destroy()
 	deleteGameObjects(deleteObjects);
 }
 
-void Layer::AddGameObject(GameObject* gameObject)
+void Layer::AddGameObject(GameObject* gameObject, Texture* tex, Vector2 size, float alpha)
 {
 	if (gameObject == nullptr)
 		return;
+	
+	Transform* tr = gameObject->AddComponent<Transform>();
+
+	if (tex != nullptr)
+	{
+		SpriteRenderer* sp = gameObject->AddComponent<SpriteRenderer>();
+		sp->SetTexture(tex);
+
+		if (size != Vector2::Zero)
+		{
+			sp->SetSize(size.x, size.y);
+			tr->SetSize(size);
+			sp->SetAlpha(alpha);
+		}
+		else
+		{
+			tr->SetSize(sp->GetSize());
+			sp->SetAlpha(alpha);
+		}
+	}
 
 	mGameObjects.push_back(gameObject);
 }
