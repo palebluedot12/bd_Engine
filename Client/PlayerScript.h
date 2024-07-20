@@ -2,6 +2,7 @@
 #include "..\\bdEngine\\Script.h"
 #include "..\\bdEngine\\Camera.h"
 #include "..\\bdEngine\\BoxCollider2D.h"
+#include "..\\bdEngine\\Transform.h"
 
 class PlayerScript : public Script
 {
@@ -27,6 +28,10 @@ public:
 
 	void SetCamera(Camera* camera) { m_Camera = camera; }
 
+	void OnCollisionEnter(class Collider* other);
+	void OnCollisionStay(class Collider* other);
+	void OnCollisionExit(class Collider* other);
+
 private:
 	void SitDown();
 	void Move();
@@ -39,4 +44,5 @@ private:
 
 public:
 	BoxCollider2D* co;                    // 렉트콜라이더 컴포넌트
+	Collider* col;
 };

@@ -3,7 +3,7 @@
 #include "Transform.h"
 
 Layer::Layer()
-	: mGameObjects{}
+	: m_GameObjects{}
 {
 
 }
@@ -14,7 +14,7 @@ Layer::~Layer()
 
 void Layer::Initialize()
 {
-	for (GameObject* gameObj : mGameObjects)
+	for (GameObject* gameObj : m_GameObjects)
 	{
 		if (gameObj == nullptr)
 			continue;
@@ -25,7 +25,7 @@ void Layer::Initialize()
 
 void Layer::Update()
 {
-	for (GameObject* gameObj : mGameObjects)
+	for (GameObject* gameObj : m_GameObjects)
 	{
 		if (gameObj == nullptr)
 			continue;
@@ -35,7 +35,7 @@ void Layer::Update()
 }
 void Layer::LateUpdate()
 {
-	for (GameObject* gameObj : mGameObjects)
+	for (GameObject* gameObj : m_GameObjects)
 	{
 		if (gameObj == nullptr)
 			continue;
@@ -45,7 +45,7 @@ void Layer::LateUpdate()
 }
 void Layer::Render(ID2D1RenderTarget* pRenderTarget)
 {
-	for (GameObject* gameObj : mGameObjects)
+	for (GameObject* gameObj : m_GameObjects)
 	{
 		if (gameObj == nullptr)
 			continue;
@@ -87,12 +87,12 @@ void Layer::AddGameObject(GameObject* gameObject, Texture* tex, Vector2 size, fl
 		}
 	}
 
-	mGameObjects.push_back(gameObject);
+	m_GameObjects.push_back(gameObject);
 }
 
 void Layer::findDeadGameObjects(OUT std::vector<GameObject*>& gameObjs)
 {
-	for (GameObject* gameObj : mGameObjects)
+	for (GameObject* gameObj : m_GameObjects)
 	{
 		GameObject::eState active = gameObj->GetState();
 		if (active == GameObject::eState::Dead)
@@ -111,7 +111,7 @@ void Layer::deleteGameObjects(std::vector<GameObject*> deleteObjs)
 
 void Layer::eraseGameObject()
 {
-	std::erase_if(mGameObjects,
+	std::erase_if(m_GameObjects,
 		[](GameObject* gameObj)
 		{
 			return (gameObj)->IsDead();

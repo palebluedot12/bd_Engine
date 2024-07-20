@@ -4,8 +4,9 @@
 #include "GameObject.h"
 #include "Collider.h"
 #include "Transform.h"
+#include "Animator.h"
 
-std::bitset<(UINT)eLayerType::Max> CollisionManager::mCollisionLayerMatrix[(UINT)eLayerType::Max] = {};
+std::bitset<(UINT)eLayerType::Max> CollisionManager::m_CollisionLayerMatrix[(UINT)eLayerType::Max] = {};
 std::unordered_map<UINT64, bool> CollisionManager::m_CollisionMap = {};
 
 void CollisionManager::Initialize()
@@ -22,7 +23,7 @@ void CollisionManager::Update()
 	{
 		for (UINT col = 0; col < (UINT)eLayerType::Max; col++)
 		{
-			if (mCollisionLayerMatrix[row][col] == true)
+			if (m_CollisionLayerMatrix[row][col] == true)
 			{
 				LayerCollision(scene, (eLayerType)row, (eLayerType)col);
 			}
@@ -41,6 +42,21 @@ void CollisionManager::Render(ID2D1RenderTarget* pRenderTarget)
 
 void CollisionManager::CollisionLayerCheck(eLayerType left, eLayerType right, bool enable)
 {
+	// CollisionLayerMatrix를 유니티처럼 2차원배열 절반 나눈 형태로 쓴다고 가정함
+	/*
+				| NONE | BACKGROUND | OBJECT | PLAYER | ... | MAX |
+	NONE		|      |            |        |        |     |     |			
+	BACKGROUND	|      |            |   O    |        |     |     |
+	OBJECT		|      |            |        |   O 	  |     |     |							 
+	PLAYER      |      |            |        |        |     |     |
+	...
+	MAX
+	--------------------------------------------------------------------
+	
+	left의 숫자가 가 더 작으면 row에 left, 크면 row 에 right...
+	(0, 2) 와 (2, 0) 은 같은 것이니
+	이런식으로 써서 2차원배열을 절반으로 나눈 한쪽 부분만 체크하겠다는 의미
+	*/
 	int row = 0;
 	int col = 0;
 
@@ -55,7 +71,8 @@ void CollisionManager::CollisionLayerCheck(eLayerType left, eLayerType right, bo
 		col = (UINT)left;
 	}
 
-	mCollisionLayerMatrix[row][col] = enable;
+	//bitset
+	m_CollisionLayerMatrix[row][col] = enable;
 
 }
 
@@ -108,28 +125,28 @@ void CollisionManager::ColliderCollision(Collider* left, Collider* right)
 	// 충돌 체크를 해준다
 	if (Intersect(left, right))
 	{
-		////최초 충돌할
-		//if (iter->second == false)
-		//{
-		//	left->OnCollisionEnter(right);
-		//	right->OnCollisionEnter(left);
-		//	iter->second = true;
-		//}
-		//else // 이미 충돌 중
-		//{
-		//	left->OnCollisionStay(right);
-		//	right->OnCollisionStay(left);
-		//}
+		//이전에 충돌하지 않았는데 충돌했다? => 최초 충돌(Enter)
+		if (iter->second == false)
+		{
+			OutputDebugStringW(L"Collision Enter \n");
+			left->OnCollisionEnter(right);
+			right->OnCollisionEnter(left);
+			iter->second = true;
+		}
+		else // 이미 충돌 중
+		{
+			OutputDebugStringW(L"Collision STAY \n");
+			left->OnCollisionStay(right);
+			right->OnCollisionStay(left);
+		}
 
-		int a = 0;
-
-		OutputDebugStringW(L"collide!! \n");
 	}
 	else
 	{
 		//충돌을 하지 않은 상태
 		if (iter->second == true)
 		{
+			OutputDebugStringW(L"Collision EXIT \n");
 			left->OnCollisionExit(right);
 			right->OnCollisionExit(left);
 
@@ -148,10 +165,13 @@ bool CollisionManager::Intersect(Collider* left, Collider* right)
 	Vector2 leftPos = leftTr->GetPosition() + left->GetOffset();
 	Vector2 rightPos = rightTr->GetPosition() + right->GetOffset();
 
-	// TODO : 사이즈 제대로 가져와야함
-	Vector2 leftSize = left->GetSize() * 50.0f;
-	Vector2 rightSize = right->GetSize() * 50.0f;
-
+	// Sprite => Transform의 GetSize
+	// Animaiton => 따로 설정한 collider size
+	// SpriteRenderer와 Animation, BoxCollider=> 현재 Transform의 Scale과 Size를 둘다 가져와서 매트릭스에 곱하고 있음.
+	// 단순 size가 아니고 BoxCollider에서 scale과 size를 곱한 값을 가져오기. 
+	Vector2 leftSize = left->GetOwner()->GetComponent<BoxCollider2D>()->size * (leftTr->GetScale());
+	Vector2 rightSize = right->GetOwner()->GetComponent<BoxCollider2D>()->size * (rightTr->GetScale());
+	
 	//AABB 충돌
 	if (fabs(leftPos.x - rightPos.x) < fabs(leftSize.x / 2.0f + rightSize.x / 2.0f)
 		&& fabs(leftPos.y - rightPos.y) < fabs(leftSize.y / 2.0f + rightSize.y / 2.0f))

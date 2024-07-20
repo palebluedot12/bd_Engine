@@ -1,4 +1,5 @@
 #include "Script.h"
+#include "Collider.h"
 
 Script::Script()
 	: Component(eComponentType::Script)

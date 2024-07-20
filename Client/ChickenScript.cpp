@@ -6,6 +6,7 @@
 #include "..\\bdEngine\\Animator.h"
 #include "PlayScene.h"
 #include "..\\bdEngine\\BoxCollider2D.h"
+#include "..\\bdEngine\\Collider.h"
 
 ChickenScript::ChickenScript()
 	: m_State(ChickenScript::eState::SitDown)

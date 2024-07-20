@@ -23,10 +23,6 @@ public:
 	void LateUpdate() override;
 	void Render(ID2D1RenderTarget* pRenderTarget) override;
 
-	void CullObjects(const std::vector<GameObject*>& objects);
-	const std::vector<GameObject*>& GetVisibleObjects() const { return m_VisibleObjects; }
-
-
 	Vector2 WorldToScreenPoint(const Vector2& worldPos)
 	{
 		Vector2 viewPos = (worldPos - m_LookPosition) * m_Zoom;

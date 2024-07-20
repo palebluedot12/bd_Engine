@@ -4,6 +4,8 @@
 #include "..\\bdEngine\\GameObject.h"
 #include "..\\bdEngine\\Time.h"
 #include "..\\bdEngine\\Animator.h"
+#include "..\\bdEngine\\Collider.h"
+
 
 PlayerScript::PlayerScript()
 {
@@ -52,6 +54,7 @@ void PlayerScript::LateUpdate()
 void PlayerScript::Render(ID2D1RenderTarget* pRenderTarget)
 {
 }
+
 
 void PlayerScript::SitDown()
 {
@@ -113,6 +116,20 @@ void PlayerScript::Move()
 	//OutputDebugStringW(L", ");
 	//OutputDebugStringW(std::to_wstring(tr->GetPosition().y).c_str());
 	//OutputDebugStringW(L"\n");
+}
+
+
+void PlayerScript::OnCollisionEnter(Collider* other)
+{
+	//other->GetOwner()->GetComponent<Transform>()->SetPosition(Vector2(600.0f, 600.0f));
+}
+
+void PlayerScript::OnCollisionStay(Collider* other)
+{
+}
+
+void PlayerScript::OnCollisionExit(Collider* other)
+{
 }
 
 

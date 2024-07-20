@@ -32,6 +32,8 @@ void PlayScene::Initialize()
 {
 	// 누구랑 누구랑(어떤 레이어타입끼리) 충돌감지 켜놓을건지
 	CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Object, true);
+	CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Player, true);
+
 
 	// 플레이어 (카메라가 따라가게)
 	{
@@ -39,7 +41,7 @@ void PlayScene::Initialize()
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		mainCamera = cameraComp;
 
-		m_Player = Instantiate<Player>(eLayerType::Player, Vector2(784.0f, 434.0f)); 		
+		m_Player = Instantiate<Player>(eLayerType::Player, Vector2(900.0f, 434.0f)); 		
 		m_Player->AddComponent<PlayerScript>();
 
 		// 카메라만 따로 움직일 수 있게
@@ -49,7 +51,7 @@ void PlayScene::Initialize()
 		cameraComp->SetTarget(m_Player);
 
 		Texture* catTexture = ResourceManager::Find<Texture>(L"Cat");
-		Animator* animator = m_Player->AddComponent<Animator>();
+		Animator* animator = m_Player->AddComponent<Animator>(); 
 		animator->CreateAnimation(L"DownWalk", catTexture,
 			Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
 		animator->CreateAnimation(L"RightWalk", catTexture,
@@ -65,6 +67,7 @@ void PlayScene::Initialize()
 
 		animator->PlayAnimation(L"SitDown", false);
 		m_Player->GetComponent<Transform>()->SetScale(Vector2(3.0f, 3.0f));
+
 	}
 
 	//닭

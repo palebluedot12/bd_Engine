@@ -14,6 +14,7 @@ public:
 
 	Vector2 size;
 	Vector2 offset;
+	Vector2 scale;
 
 private:
 

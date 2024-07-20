@@ -49,6 +49,7 @@ void SpriteRenderer::Render(ID2D1RenderTarget* pRenderTarget)
         return;
     }
 
+
     D2D1_SIZE_F originalSize = pBitmap->GetSize();
     renderSize = m_UseCustomSize ? m_Size : Vector2(originalSize.width, originalSize.height);
 

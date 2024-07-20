@@ -1,5 +1,7 @@
 #pragma once
 #include "Component.h"
+#include "Script.h"
+#include "GameObject.h"
 
 class Collider : public Component
 {

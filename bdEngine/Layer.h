@@ -17,7 +17,7 @@ public:
 	virtual void Destroy();
 
 	void AddGameObject(GameObject* gameObject, Texture* tex = nullptr, Vector2 size = Vector2::Zero, float alpha = 1.0f);
-	const std::vector<GameObject*> GetGameObjects() { return mGameObjects; }
+	const std::vector<GameObject*> GetGameObjects() { return m_GameObjects; }
 
 private:
 	void findDeadGameObjects(OUT std::vector<GameObject*>& gameObjs);
@@ -26,6 +26,6 @@ private:
 
 private:
 	//eLayerType mType;
-	std::vector<GameObject*> mGameObjects;
+	std::vector<GameObject*> m_GameObjects;
 
 };

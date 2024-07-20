@@ -89,6 +89,12 @@ struct Vector2
     // Scalar 곱셈의 교환법칙을 위한 전역 함수
     friend Vector2 operator*(float scalar, const Vector2& vec);
 
+    // 벡터끼리 곱해서 벡터 반환
+    Vector2 operator*(const Vector2& other) const
+    {
+        return Vector2(x * other.x, y * other.y);
+    }
+
 };
 
 inline Vector2 operator*(float scalar, const Vector2& vec)

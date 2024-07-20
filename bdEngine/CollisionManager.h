@@ -29,7 +29,7 @@ public:
 
 private:
 	// 유니티처럼 충돌 레이어 만듦. 충돌 감지할 오브젝트들끼리만 체크
-	static std::bitset<(UINT)eLayerType::Max> mCollisionLayerMatrix[(UINT)eLayerType::Max];
+	static std::bitset<(UINT)eLayerType::Max> m_CollisionLayerMatrix[(UINT)eLayerType::Max];
 	static std::unordered_map<UINT64, bool> m_CollisionMap;
 };
 

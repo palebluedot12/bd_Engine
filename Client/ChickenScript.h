@@ -4,6 +4,9 @@
 #include "Player.h"
 #include "PlayScene.h"
 #include "..\\bdEngine\\BoxCollider2D.h"
+#include "..\\bdEngine\\Transform.h"
+
+
 
 
 class ChickenScript : public Script
@@ -48,6 +51,9 @@ private:
 
 public:
 	BoxCollider2D* co;
+	Collider* col;
+	Transform* tr;
+
 
 };
 
