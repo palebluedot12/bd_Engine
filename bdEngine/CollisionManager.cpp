@@ -5,6 +5,7 @@
 #include "Collider.h"
 #include "Transform.h"
 #include "Animator.h"
+#include "Camera.h"
 
 std::bitset<(UINT)eLayerType::Max> CollisionManager::m_CollisionLayerMatrix[(UINT)eLayerType::Max] = {};
 std::unordered_map<UINT64, bool> CollisionManager::m_CollisionMap = {};
@@ -155,6 +156,26 @@ void CollisionManager::ColliderCollision(Collider* left, Collider* right)
 	}
 
 
+}
+
+
+std::vector<GameObject*> CollisionManager::GetVisibleObjects(const Camera* camera, const std::vector<GameObject*>& objects)
+{
+	std::vector<GameObject*> visibleObjects;
+	BoxCollider2D* cameraCollider = camera->GetViewportCollider();
+
+	for (const auto& obj : objects)
+	{
+		BoxCollider2D* objCollider = obj->GetComponent<BoxCollider2D>();
+		if (!objCollider) continue;
+
+		if (Intersect(cameraCollider, objCollider))
+		{
+			visibleObjects.push_back(obj);
+		}
+	}
+
+	return visibleObjects;
 }
 
 bool CollisionManager::Intersect(Collider* left, Collider* right)

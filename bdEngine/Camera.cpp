@@ -2,6 +2,7 @@
 #include "Transform.h"
 #include "GameObject.h"
 #include "GameManager.h"
+#include "BoxCollider2D.h"
 
 extern GameManager application;
 
@@ -24,6 +25,9 @@ void Camera::Initialize()
 	m_Resolution.x = application.GetWidth();
 	m_Resolution.y = application.GetHeight();
 	m_Zoom = 1.0f;
+
+	m_ViewportCollider = GetOwner()->AddComponent<BoxCollider2D>();
+	UpdateViewportCollider();
 	UpdateViewMatrix();
 }
 void Camera::Update()
@@ -35,6 +39,7 @@ void Camera::Update()
 		m_LookPosition = tr->GetPosition() + m_Offset;
 	}
 	UpdateViewMatrix();
+	UpdateViewportCollider();
 
 }
 void Camera::LateUpdate()
@@ -78,4 +83,20 @@ void Camera::UpdateViewMatrix()
 
 	//OutputDebugStringW((L"Camera Position: " + std::to_wstring(m_LookPosition.x)
 	//	+ L", " + std::to_wstring(m_LookPosition.y) + L"\n").c_str());
+}
+
+
+// 중앙에 위치하도록 설정
+void Camera::UpdateViewportCollider()
+{
+	Vector2 size = m_Resolution / m_Zoom;
+	m_ViewportCollider->size = size;
+	m_ViewportCollider->offset = size / 2.0f;
+
+	// 카메라의 실제 위치로 Collider 위치 업데이트
+	Transform* transform = GetOwner()->GetComponent<Transform>();
+	if (transform)
+	{
+		transform->SetPosition(m_LookPosition);
+	}
 }

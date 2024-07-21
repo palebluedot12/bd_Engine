@@ -2,6 +2,9 @@
 #include "Entity.h"
 #include "GameObject.h"
 #include "Layer.h"
+#include "CollisionManager.h"
+#include "RenderManager.h"
+#include <string>
 
 class Scene : public Entity
 {

@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "BoxCollider2D.h"
 
 class Camera : public Component
 {
@@ -40,18 +41,23 @@ public:
 		return m_ViewMatrix;
 	}
 
+	BoxCollider2D* GetViewportCollider() const { return m_ViewportCollider; }
+	void UpdateViewportCollider();
 
 private:
 	//std::vector<GameObject*> mGameObjects;
 	class GameObject* m_Target;
 	Vector2 m_Distance;				// 카메라가 이동한 거리
-	Vector2 m_Resolution;
+	Vector2 m_Resolution = { 1600.0f, 900.0f };
 	Vector2 m_LookPosition;			// 카메라가 바라보고있는 좌표
 	D2D1::Matrix3x2F m_ViewMatrix;
 	float m_Zoom;
 	Vector2 m_Offset;
 
+	BoxCollider2D* m_ViewportCollider;
+
 	std::vector<GameObject*> m_VisibleObjects;
+
 
 
 };

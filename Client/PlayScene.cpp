@@ -34,11 +34,11 @@ void PlayScene::Initialize()
 	CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Object, true);
 	CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Player, true);
 
-
 	// 플레이어 (카메라가 따라가게)
 	{
 		GameObject* cameraObj = Instantiate<GameObject>(eLayerType::None);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
+		cameraObj->AddComponent<BoxCollider2D>();
 		mainCamera = cameraComp;
 
 		m_Player = Instantiate<Player>(eLayerType::Player, Vector2(900.0f, 434.0f)); 		

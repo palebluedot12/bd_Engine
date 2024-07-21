@@ -40,13 +40,25 @@ void Scene::LateUpdate()
 }
 void Scene::Render(ID2D1RenderTarget* pRenderTarget)
 {
+	std::vector<GameObject*> visibleObjects;
+
 	for (Layer* layer : m_Layers)
 	{
 		if (layer == nullptr)
 			continue;
 
-		layer->Render(pRenderTarget);
+		const std::vector<GameObject*>& layerObjects = layer->GetGameObjects();
+		std::vector<GameObject*> layerVisibleObjects = CollisionManager::GetVisibleObjects(mainCamera, layerObjects);
+		visibleObjects.insert(visibleObjects.end(), layerVisibleObjects.begin(), layerVisibleObjects.end());
+
+		//layer->Render(pRenderTarget);
 	}
+
+	for (GameObject* obj : visibleObjects)
+	{
+		obj->Render(pRenderTarget);
+	}
+	RenderManager::RenderDebugInfo(visibleObjects.size() - 1);
 }
 
 void Scene::AddGameObject(GameObject* gameObj, const eLayerType type)

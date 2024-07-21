@@ -2,6 +2,7 @@
 #include "CommonInclude.h"
 #include "BoxCollider2D.h"
 #include "CircleCollider2D.h"
+#include "Camera.h"
 
 union CollisionID
 {
@@ -26,6 +27,7 @@ public:
 	static void LayerCollision(class Scene* scene, eLayerType left, eLayerType right);
 	static void ColliderCollision(Collider* left, Collider* right);
 	static bool Intersect(Collider* left, Collider* right);
+	static std::vector<GameObject*> GetVisibleObjects(const Camera* camera, const std::vector<GameObject*>& objects);
 
 private:
 	// 유니티처럼 충돌 레이어 만듦. 충돌 감지할 오브젝트들끼리만 체크
