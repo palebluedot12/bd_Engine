@@ -82,27 +82,27 @@ void RenderManager::Initialize(HWND hwnd)
 
 	CreateDeviceResources();
 
-	hr = CreateDXGIFactory1(IID_PPV_ARGS(&pDXGIFactory));
-	if (SUCCEEDED(hr))
-	{
-		hr = pDXGIFactory->EnumAdapters(0, reinterpret_cast<IDXGIAdapter**>(&m_pAdapter));
-		pDXGIFactory->Release();
-	}
+	//hr = CreateDXGIFactory1(IID_PPV_ARGS(&pDXGIFactory));
+	//if (SUCCEEDED(hr))
+	//{
+	//	hr = pDXGIFactory->EnumAdapters(0, reinterpret_cast<IDXGIAdapter**>(&m_pAdapter));
+	//	pDXGIFactory->Release();
+	//}
 
-	if (FAILED(hr)) {
-		std::cerr << "Failed to create DXGI adapter. HRESULT: " << hr << std::endl;
-	}
+	//if (FAILED(hr)) {
+	//	std::cerr << "Failed to create DXGI adapter. HRESULT: " << hr << std::endl;
+	//}
 
-	// Initialize DirectWrite
-	hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&m_pDWriteFactory));
-	if (SUCCEEDED(hr))
-	{
-		hr = m_pDWriteFactory->CreateTextFormat(L"Arial", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 20, L"en-us", &m_pTextFormat);
-	}
+	//// Initialize DirectWrite
+	//hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&m_pDWriteFactory));
+	//if (SUCCEEDED(hr))
+	//{
+	//	hr = m_pDWriteFactory->CreateTextFormat(L"Arial", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 20, L"en-us", &m_pTextFormat);
+	//}
 
-	if (FAILED(hr)) {
-		std::cerr << "Failed to initialize DirectWrite. HRESULT: " << hr << std::endl;
-	}
+	//if (FAILED(hr)) {
+	//	std::cerr << "Failed to initialize DirectWrite. HRESULT: " << hr << std::endl;
+	//}
 }
 
 void RenderManager::UpdateVRAMUsage()
@@ -218,23 +218,23 @@ void RenderManager::RenderDebugInfo(size_t visibleObjectCount)
 {
 	// VRAM 정보를 가져오는 코드...
 	wchar_t debugText[256];
-	swprintf_s(debugText, L"Visible Objects: %zu\nVRAM Usage: %d MB\nCamera pos: ",
-		visibleObjectCount, m_MemInfo.CurrentUsage / (1024 * 1024));
+	swprintf_s(debugText, L"Visible Objects: %zu\n",
+		visibleObjectCount);
 
 	ID2D1SolidColorBrush* pBrush;
 	pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pBrush);
 
-	//// 텍스트 포맷 생성 (한 번만 생성하고 재사용하는 것이 좋음)
-	//IDWriteFactory* pDWriteFactory;
-	//DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pDWriteFactory));
-	//IDWriteTextFormat* pTextFormat;
-	//pDWriteFactory->CreateTextFormat(L"Arial", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 20, L"en-us", &pTextFormat);
+	// 텍스트 포맷 생성 (한 번만 생성하고 재사용하는 것이 좋음)
+	IDWriteFactory* pDWriteFactory;
+	DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pDWriteFactory));
+	IDWriteTextFormat* pTextFormat;
+	pDWriteFactory->CreateTextFormat(L"Arial", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 30, L"en-us", &pTextFormat);
 
 	pRenderTarget->DrawText(
 		debugText,
 		wcslen(debugText),
-		m_pTextFormat,
-		D2D1::RectF(10, 10, 200, 100),
+		pTextFormat,
+		D2D1::RectF(10, 10, 300, 100),
 		pBrush
 	);
 

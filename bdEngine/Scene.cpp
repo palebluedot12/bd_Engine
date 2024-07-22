@@ -7,6 +7,11 @@ Scene::Scene()
 }
 Scene::~Scene()
 {
+	for (Layer* layer : m_Layers)
+	{
+		delete layer;
+		layer = nullptr;
+	}
 }
 void Scene::Initialize()
 {

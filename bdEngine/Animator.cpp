@@ -136,7 +136,6 @@ void Animator::PlayAnimation(const std::wstring& name, bool loop)
 	if (animation == nullptr)
 		return;
 
-
 	if (m_ActiveAnimation)
 	{
 		Events* currentEvents
@@ -145,7 +144,6 @@ void Animator::PlayAnimation(const std::wstring& name, bool loop)
 		if (currentEvents)
 			currentEvents->endEvent();
 	}
-
 
 	Events* nextEvents
 		= FindEvents(animation->GetName());
@@ -169,21 +167,18 @@ Animator::Events* Animator::FindEvents(const std::wstring& name)
 
 std::function<void()>& Animator::GetStartEvent(const std::wstring& name)
 {
-	// TODO: 여기에 return 문을 삽입합니다.
 	Events* events = FindEvents(name);
-	return events->startEvent.mEvent;
+	return events->startEvent.m_Event;
 }
 
 std::function<void()>& Animator::GetCompleteEvent(const std::wstring& name)
 {
-	// TODO: 여기에 return 문을 삽입합니다.
 	Events* events = FindEvents(name);
-	return events->completeEvent.mEvent;
+	return events->completeEvent.m_Event;
 }
 
 std::function<void()>& Animator::GetEndEvent(const std::wstring& name)
 {
-	// TODO: 여기에 return 문을 삽입합니다.
 	Events* events = FindEvents(name);
-	return events->endEvent.mEvent;
+	return events->endEvent.m_Event;
 }

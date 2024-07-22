@@ -3,6 +3,7 @@
 #include "..\\bdEngine\\Camera.h"
 #include "..\\bdEngine\\BoxCollider2D.h"
 #include "..\\bdEngine\\Transform.h"
+#include "..\\bdEngine\\Movement.h"
 
 class PlayerScript : public Script
 {
@@ -41,8 +42,8 @@ private:
 	Camera* m_Camera;
 	eState m_State;
 	class Animator* m_Animator;
+	Movement* m_Movement;
 
 public:
 	BoxCollider2D* co;                    // 렉트콜라이더 컴포넌트
-	Collider* col;
 };

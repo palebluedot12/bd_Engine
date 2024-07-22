@@ -23,6 +23,8 @@ void ChickenScript::Start()
 {
     co = gameObject->AddComponent<BoxCollider2D>();
     co->size = { 25, 25 };
+    m_Movement = gameObject->AddComponent<Movement>();
+    m_Movement->SetSpeed(70.0f);
 
     if (m_PlayScene)
     {
@@ -54,16 +56,18 @@ void ChickenScript::Update()
 
     switch (m_State)
     {
-    case eState::SitDown:
-        SitDown();
-        break;
-    case eState::Chase:
-        Chase();
-        break;
-    case eState::Attack:
-        Attack();
-        break;
+        case eState::SitDown:
+            SitDown();
+            break;
+        case eState::Chase:
+            Chase();
+            break;
+        case eState::Attack:
+            Attack();
+            break;
     }
+
+    
 }
 
 void ChickenScript::UpdateState()
@@ -92,9 +96,12 @@ void ChickenScript::Chase()
     Vector2 chickenPos = GetOwner()->GetComponent<Transform>()->GetPosition();
     Vector2 direction = (playerPos - chickenPos).Normalized();
 
-    Transform* tr = GetOwner()->GetComponent<Transform>();
-    Vector2 newPos = chickenPos + direction * 70.0f * Time::DeltaTime();
-    tr->SetPosition(newPos);
+    //Transform* tr = GetOwner()->GetComponent<Transform>();
+    //Vector2 newPos = chickenPos + direction * 70.0f * Time::DeltaTime();
+    //tr->SetPosition(newPos);
+
+    // TODO : 와리가리 버그 => Attack하면서 움직이면 안됨
+    m_Movement->SetDirection(direction);
 
     if (direction.x > 0)
     {
@@ -121,11 +128,10 @@ void ChickenScript::Render(ID2D1RenderTarget* pRenderTarget)
 
 }
 
-
-
 void ChickenScript::SitDown()
 {
     m_Animator->PlayAnimation(L"LeftSit", true);
+    m_Movement->SetDirection(Vector2::Zero);
 }
 
 void ChickenScript::Move()

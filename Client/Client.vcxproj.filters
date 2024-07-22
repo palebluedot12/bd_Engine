@@ -49,6 +49,9 @@
     <ClInclude Include="Chicken.h">
       <Filter>02. Contents</Filter>
     </ClInclude>
+    <ClInclude Include="CatScript.h">
+      <Filter>03. Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -77,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="Chicken.cpp">
       <Filter>02. Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="CatScript.cpp">
+      <Filter>03. Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

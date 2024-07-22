@@ -12,9 +12,6 @@ std::unordered_map<UINT64, bool> CollisionManager::m_CollisionMap = {};
 
 void CollisionManager::Initialize()
 {
-	int a = 1;
-	int b = a << 1;
-
 }
 
 void CollisionManager::Update()

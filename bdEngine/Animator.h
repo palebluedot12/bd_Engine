@@ -10,16 +10,16 @@ public:
 	{
 		void operator=(std::function<void()> func)
 		{
-			mEvent = std::move(func);
+			m_Event = std::move(func);
 		}
 
 		void operator()()
 		{
-			if (mEvent)
-				mEvent();
+			if (m_Event)
+				m_Event();
 		}
 
-		std::function<void()> mEvent;
+		std::function<void()> m_Event;
 	};
 
 	struct Events

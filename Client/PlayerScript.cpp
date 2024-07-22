@@ -6,8 +6,8 @@
 #include "..\\bdEngine\\Animator.h"
 #include "..\\bdEngine\\Collider.h"
 
-
 PlayerScript::PlayerScript()
+	: m_Movement(nullptr)
 {
 }
 
@@ -18,7 +18,10 @@ PlayerScript::~PlayerScript()
 void PlayerScript::Start()
 {
 	co = gameObject->AddComponent<BoxCollider2D>();
-	co->size = { 25, 30 };
+	co->size = { 25, 25 };
+	co->offset = { 0, 15 };
+	m_Movement = gameObject->AddComponent<Movement>();
+	m_Movement->SetSpeed(100.0f);
 }
 
 

@@ -11,6 +11,7 @@
 #include "..\\bdEngine\\Texture.h"
 #include "..\\bdEngine\\Camera.h"
 #include "PlayerScript.h"
+#include "..\\bdEngine\\Script.h"
 #include "ChickenScript.h"
 #include "TitleScene.h"
 #include "Player.h"
@@ -98,6 +99,23 @@ void PlayScene::Initialize()
 		sun->AddComponent<BoxCollider2D>();
 	}
 
+	// Script가 달려있어야 Update가 되면서 애니메이션이 그려짐
+	// 그럼 animation 하고싶은애들마다 Script를 다 붙여줘야돼..?? => 더 좋은 방법 찾아보기...
+	{
+		GameObject* sun2 = Instantiate<GameObject>(eLayerType::Object, Vector2(600.0f, 300.0f));
+		Texture* sunTex = ResourceManager::Find<Texture>(L"Midnight");
+
+		Animator* sunAnimator = sun2->AddComponent<Animator>();
+		//sun2->AddComponent<PlayerScript>();
+
+		sunAnimator->CreateAnimation(L"Shining", sunTex
+			, Vector2(0.0f, 0.0f), Vector2(789.0f, 325.0f), Vector2::Zero, 2, 0.1f);
+		sunAnimator->CreateAnimation(L"Shining2", sunTex
+			, Vector2(0.0f, 325.0f), Vector2(789.0f, 325.0f), Vector2::Zero, 2, 0.1f);
+
+		sunAnimator->PlayAnimation(L"Shining", true);
+	}
+
 	// 별 많이
 	{
 		for (int i = 0; i < 500; ++i)
@@ -114,7 +132,6 @@ void PlayScene::Initialize()
 			star->AddComponent<BoxCollider2D>();
 		}
 	}
-
 	Scene::Initialize();
 }
 

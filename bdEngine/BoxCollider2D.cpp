@@ -28,7 +28,6 @@ void BoxCollider2D::Render(ID2D1RenderTarget* pRenderTarget)
 {
     Transform* tr = GetOwner()->GetComponent<Transform>();
     Vector2 pos = tr->GetPosition();
-    Vector2 offset = GetOffset();
     scale = tr->GetScale();
     float rotation = tr->GetRotation();
 

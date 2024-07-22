@@ -10,4 +10,5 @@ void LoadResources()
 	ResourceManager::Load<Texture>(L"Star", L"..\\Resources\\star.png");
 	ResourceManager::Load<Texture>(L"Cat", L"..\\Resources\\CatAlpha.png");
 	ResourceManager::Load<Texture>(L"Chicken", L"..\\Resources\\ChickenAlpha.png");
+	ResourceManager::Load<Texture>(L"Midnight", L"..\\Resources\\Midnight.png");
 }

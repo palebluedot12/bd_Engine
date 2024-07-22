@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CatScript.h" />
     <ClInclude Include="Chicken.h" />
     <ClInclude Include="ChickenScript.h" />
     <ClInclude Include="framework.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CatScript.cpp" />
     <ClCompile Include="Chicken.cpp" />
     <ClCompile Include="ChickenScript.cpp" />
     <ClCompile Include="main.cpp" />
