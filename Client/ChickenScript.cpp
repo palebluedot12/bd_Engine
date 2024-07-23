@@ -32,15 +32,13 @@ void ChickenScript::Start()
     }
 }
 
-//void ChickenScript::Initialize()
-//{
-//	if (m_PlayScene)
-//	{
-//		m_Player = m_PlayScene->GetPlayer();
-//	}
-//
-//   
-//}
+void ChickenScript::Initialize()
+{
+	if (m_PlayScene)
+	{
+		m_Player = m_PlayScene->GetPlayer();
+	}
+}
 
 void ChickenScript::Update()
 {

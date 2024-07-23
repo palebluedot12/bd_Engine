@@ -121,7 +121,6 @@ void PlayerScript::Move()
 	//OutputDebugStringW(L"\n");
 }
 
-
 void PlayerScript::OnCollisionEnter(Collider* other)
 {
 	//other->GetOwner()->GetComponent<Transform>()->SetPosition(Vector2(600.0f, 600.0f));

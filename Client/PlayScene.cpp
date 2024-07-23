@@ -145,7 +145,7 @@ void PlayScene::Update()
 
 		GameObject* cat = Instantiate<GameObject>(eLayerType::Object, Vector2((float)randX, (float)randY));
 		Animator* catAnimator = cat->AddComponent<Animator>();
-		cat->AddComponent<ChickenScript>();
+		cat->AddComponent<CatScript>();
 		//sun2->AddComponent<PlayerScript>();
 		Texture* catTexture2 = ResourceManager::Find<Texture>(L"Cat");
 		catAnimator->CreateAnimation(L"DownWalk", catTexture2,
@@ -162,12 +162,12 @@ void PlayScene::Update()
 			Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
 	
 		cat->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
-		catAnimator->PlayAnimation(L"SitDown", false);
+		catAnimator->PlayAnimation(L"Grooming", true);
 	}
 
 	if (Input::GetKey(eKeyCode::Back))
 	{
-		DestroyObjectsWithComponent<ChickenScript>(eLayerType::Object);
+		DestroyObjectsWithComponent<CatScript>(eLayerType::Object);
 	}
 
 }
