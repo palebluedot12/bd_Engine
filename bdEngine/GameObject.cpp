@@ -6,13 +6,13 @@
 GameObject::GameObject()
 	: m_State(eState::Active)
 {
-	mComponents.resize((UINT)eComponentType::End);
+	m_Components.resize((UINT)eComponentType::End);
 	InitializeTransform();
 }
 
 GameObject::~GameObject()
 {
-	for (Component* comp : mComponents)
+	for (Component* comp : m_Components)
 	{
 		delete comp;
 		comp = nullptr;
@@ -21,7 +21,7 @@ GameObject::~GameObject()
 
 void GameObject::Initialize()
 {
-	for (Component* comp : mComponents)
+	for (Component* comp : m_Components)
 	{
 		if (comp == nullptr)
 			continue;
@@ -32,7 +32,7 @@ void GameObject::Initialize()
 
 void GameObject::Update()
 {
-	for (Component* comp : mComponents)
+	for (Component* comp : m_Components)
 	{
 		if (comp == nullptr)
 			continue;
@@ -42,7 +42,7 @@ void GameObject::Update()
 
 void GameObject::LateUpdate()
 {
-	for (Component* comp : mComponents)
+	for (Component* comp : m_Components)
 	{
 		if (comp == nullptr)
 			continue;
@@ -52,7 +52,7 @@ void GameObject::LateUpdate()
 
 void GameObject::Render(ID2D1RenderTarget* pRenderTarget)
 {
-	for (Component* comp : mComponents)
+	for (Component* comp : m_Components)
 	{
 		if (comp == nullptr)
 			continue;
@@ -67,7 +67,8 @@ void GameObject::InitializeTransform()
 	AddComponent<Transform>();
 }
 
-void Destroy(GameObject* gameObject)
+
+void object::Destroy(GameObject* gameObject)
 {
 	if (gameObject != nullptr)
 		gameObject->death();

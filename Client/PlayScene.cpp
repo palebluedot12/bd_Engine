@@ -13,6 +13,7 @@
 #include "PlayerScript.h"
 #include "..\\bdEngine\\Script.h"
 #include "ChickenScript.h"
+#include "CatScript.h"
 #include "TitleScene.h"
 #include "Player.h"
 #include "..\\bdEngine\\CommonInclude.h"
@@ -99,8 +100,6 @@ void PlayScene::Initialize()
 		sun->AddComponent<BoxCollider2D>();
 	}
 
-	// Script가 달려있어야 Update가 되면서 애니메이션이 그려짐
-	// 그럼 animation 하고싶은애들마다 Script를 다 붙여줘야돼..?? => 더 좋은 방법 찾아보기...
 	{
 		GameObject* sun2 = Instantiate<GameObject>(eLayerType::Object, Vector2(600.0f, 300.0f));
 		Texture* sunTex = ResourceManager::Find<Texture>(L"Midnight");
@@ -118,10 +117,10 @@ void PlayScene::Initialize()
 
 	// 별 많이
 	{
-		for (int i = 0; i < 500; ++i)
+		for (int i = 0; i < 100; ++i)
 		{
-			float randomX = static_cast<float>(rand() % 5000 - 2500);
-			float randomY = static_cast<float>(rand() % 5000 - 2500);
+			float randomX = static_cast<float>(rand() % 2600 - 500);
+			float randomY = static_cast<float>(rand() % 1900 - 500);
 			Vector2 randomPosition(randomX, randomY);
 
 			GameObject* star = Instantiate<GameObject>(eLayerType::Object, randomPosition
@@ -138,6 +137,39 @@ void PlayScene::Initialize()
 void PlayScene::Update()
 {
 	Scene::Update();
+
+	if (Input::GetKey(eKeyCode::Enter))
+	{
+		int randX = rand() % 1600;
+		int randY = rand() % 900;
+
+		GameObject* cat = Instantiate<GameObject>(eLayerType::Object, Vector2((float)randX, (float)randY));
+		Animator* catAnimator = cat->AddComponent<Animator>();
+		cat->AddComponent<ChickenScript>();
+		//sun2->AddComponent<PlayerScript>();
+		Texture* catTexture2 = ResourceManager::Find<Texture>(L"Cat");
+		catAnimator->CreateAnimation(L"DownWalk", catTexture2,
+			Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		catAnimator->CreateAnimation(L"RightWalk", catTexture2,
+			Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		catAnimator->CreateAnimation(L"UpWalk", catTexture2,
+			Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		catAnimator->CreateAnimation(L"LeftWalk", catTexture2,
+			Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		catAnimator->CreateAnimation(L"SitDown", catTexture2,
+			Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		catAnimator->CreateAnimation(L"Grooming", catTexture2,
+			Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+	
+		cat->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
+		catAnimator->PlayAnimation(L"SitDown", false);
+	}
+
+	if (Input::GetKey(eKeyCode::Back))
+	{
+		DestroyObjectsWithComponent<ChickenScript>(eLayerType::Object);
+	}
+
 }
 
 void PlayScene::LateUpdate()

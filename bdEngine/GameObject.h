@@ -3,7 +3,10 @@
 #include "Component.h"
 #include "SpriteRenderer.h"
 
-void Destroy(GameObject* gameObject);
+namespace object
+{
+	void Destroy(GameObject* gameObject);
+}
 
 class GameObject
 {
@@ -16,7 +19,7 @@ public:
 		End
 	};
 
-	friend void Destroy(GameObject* gameObject);
+	friend void object::Destroy(GameObject* gameObject);
 
 	GameObject();
 	~GameObject();
@@ -33,7 +36,7 @@ public:
 		comp->SetOwner(this);
 		comp->Initialize();
 
-		mComponents[(UINT)comp->GetType()] = comp;
+		m_Components[(UINT)comp->GetType()] = comp;
 		//mComponents.push_back(comp);
 
 		return comp;
@@ -43,7 +46,7 @@ public:
 	T* GetComponent()
 	{
 		T* component = nullptr;
-		for (Component* comp : mComponents)
+		for (Component* comp : m_Components)
 		{
 			component = dynamic_cast<T*>(comp);
 			if (component)
@@ -68,5 +71,5 @@ private:
 
 private:
 	eState m_State;
-	std::vector<Component*> mComponents;
+	std::vector<Component*> m_Components;
 };

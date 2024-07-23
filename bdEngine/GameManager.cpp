@@ -33,6 +33,7 @@ void GameManager::Run()
 	Update();
 	LateUpdate();
 	Render();
+    Destroy();
 }
 
 void GameManager::Update()
@@ -73,4 +74,9 @@ void GameManager::Render()
 
     RenderManager::Get()->GetRenderTarget()->EndDraw();
 
+}
+
+void GameManager::Destroy()
+{
+    SceneManager::Destroy();
 }

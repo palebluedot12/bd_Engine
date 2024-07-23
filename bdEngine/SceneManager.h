@@ -25,6 +25,7 @@ public:
 	static void Update();
 	static void LateUpdate();
 	static void Render(ID2D1RenderTarget* pRenderTarget);
+	static void Destroy();
 
 private:
 	static std::map<std::wstring, Scene*> m_Scene;

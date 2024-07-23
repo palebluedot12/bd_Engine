@@ -17,6 +17,8 @@ public:
 
 private:
 	class Player* m_Player;
+	int m_Time;
+	GameObject* cat;
 
 public:
 	Player* GetPlayer() const { return m_Player; }

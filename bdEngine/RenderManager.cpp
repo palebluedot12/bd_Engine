@@ -1,9 +1,9 @@
 #include "RenderManager.h"
 #include <iostream>
-#include <wincodec.h>
+//#include <wincodec.h>
 #include "ResourceManager.h"
 #include "Transform.h"
-#include "CommonInclude.h"
+//#include "CommonInclude.h"
 
 Camera* mainCamera = nullptr;
 ID2D1HwndRenderTarget* RenderManager::pRenderTarget = nullptr;
@@ -82,40 +82,21 @@ void RenderManager::Initialize(HWND hwnd)
 
 	CreateDeviceResources();
 
-	//hr = CreateDXGIFactory1(IID_PPV_ARGS(&pDXGIFactory));
-	//if (SUCCEEDED(hr))
-	//{
-	//	hr = pDXGIFactory->EnumAdapters(0, reinterpret_cast<IDXGIAdapter**>(&m_pAdapter));
-	//	pDXGIFactory->Release();
-	//}
-
-	//if (FAILED(hr)) {
-	//	std::cerr << "Failed to create DXGI adapter. HRESULT: " << hr << std::endl;
-	//}
-
-	//// Initialize DirectWrite
-	//hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&m_pDWriteFactory));
-	//if (SUCCEEDED(hr))
-	//{
-	//	hr = m_pDWriteFactory->CreateTextFormat(L"Arial", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 20, L"en-us", &m_pTextFormat);
-	//}
-
-	//if (FAILED(hr)) {
-	//	std::cerr << "Failed to initialize DirectWrite. HRESULT: " << hr << std::endl;
-	//}
-}
-
-void RenderManager::UpdateVRAMUsage()
-{
-	if (m_pAdapter)
+	// TODO : VRAM 정보얻기 위한 개체 생성. 
+	if (SUCCEEDED(hr))
 	{
-		m_pAdapter->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &m_MemInfo);
+		// Create DXGI factory
+		hr = CreateDXGIFactory1(__uuidof(IDXGIFactory4), (void**)&pDXGIFactory);
+	}
+	if (SUCCEEDED(hr))
+	{
+		pDXGIFactory->EnumAdapters(0, reinterpret_cast<IDXGIAdapter**>(&pDXGIAdapter));
 	}
 }
 
 void RenderManager::Render()
 {
-	UpdateVRAMUsage();
+
 }
 
 void RenderManager::CreateDeviceResources()
@@ -214,12 +195,12 @@ ID2D1HwndRenderTarget* RenderManager::GetRenderTarget()
 	return pRenderTarget;
 }
 
-void RenderManager::RenderDebugInfo(size_t visibleObjectCount)
+void RenderManager::RenderDebugInfo(size_t visibleObjectCount, int vram)
 {
 	// VRAM 정보를 가져오는 코드...
 	wchar_t debugText[256];
-	swprintf_s(debugText, L"Visible Objects: %zu\n",
-		visibleObjectCount);
+	swprintf_s(debugText, L"Visible Objects: %zu\nVRAM Usage : %d\n엔터를 눌러 고냥이 생성,\n백스페이스로 삭제",
+		visibleObjectCount, vram);
 
 	ID2D1SolidColorBrush* pBrush;
 	pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pBrush);
@@ -234,11 +215,19 @@ void RenderManager::RenderDebugInfo(size_t visibleObjectCount)
 		debugText,
 		wcslen(debugText),
 		pTextFormat,
-		D2D1::RectF(10, 10, 300, 100),
+		D2D1::RectF(10, 10, 400, 100),
 		pBrush
 	);
 
 	pBrush->Release();
 	//pTextFormat->Release();
 	//pDWriteFactory->Release();
+}
+
+
+size_t RenderManager::GetUsedVRAM()
+{
+	DXGI_QUERY_VIDEO_MEMORY_INFO videoMemoryInfo;
+	pDXGIAdapter->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &videoMemoryInfo);
+	return videoMemoryInfo.CurrentUsage / 1024 / 1024;
 }

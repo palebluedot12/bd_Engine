@@ -40,3 +40,8 @@ void SceneManager::Render(ID2D1RenderTarget* pRenderTarget)
 {
 	m_ActiveScene->Render(pRenderTarget);
 }
+
+void SceneManager::Destroy()
+{
+	m_ActiveScene->Destroy();
+}

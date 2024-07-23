@@ -1,9 +1,11 @@
 #pragma once
-#include <d2d1.h>
+//#include <d2d1.h>
 #include <dxgi1_4.h>
 #include "GameObject.h"
 #include <wincodec.h>
 #include "Camera.h"
+
+#pragma comment(lib, "dxgi.lib")
 
 extern Camera* mainCamera;
 
@@ -25,11 +27,8 @@ public:
 	HRESULT CreateD2DBitmapFromFile(const WCHAR* szFilePath, ID2D1Bitmap** ppID2D1Bitmap);
 	static ID2D1HwndRenderTarget* GetRenderTarget();
 
-	void CreateRandomEarths(int count);
-	void UpdateAndRender();
-	static void RenderDebugInfo(size_t visibleObjectCount);
-	static void UpdateVRAMUsage();
-
+	static void RenderDebugInfo(size_t visibleObjectCount, int vram);
+	size_t GetUsedVRAM();
 
 private:
 	HWND m_Hwnd;
@@ -38,6 +37,7 @@ private:
 	ID2D1SolidColorBrush* pBrush;
 	IWICImagingFactory* pWICFactory;
 	IDXGIFactory4* pDXGIFactory;
+	IDXGIAdapter3* pDXGIAdapter;
 
 	static IDXGIAdapter3* m_pAdapter;
 	static DXGI_QUERY_VIDEO_MEMORY_INFO m_MemInfo;

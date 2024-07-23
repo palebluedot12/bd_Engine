@@ -11,6 +11,7 @@ public:
 	void Update();
 	void LateUpdate();
 	void Render();
+	void Destroy();
 
 	UINT GetWidth() { return m_Width; }
 	UINT GetHeight() { return m_Height; }

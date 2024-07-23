@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include <typeinfo>
 
 Scene::Scene()
 	: m_Layers{}
@@ -63,7 +64,20 @@ void Scene::Render(ID2D1RenderTarget* pRenderTarget)
 	{
 		obj->Render(pRenderTarget);
 	}
-	RenderManager::RenderDebugInfo(visibleObjects.size() - 1);
+
+	m_UsedVRAM = RenderManager::Get()->GetUsedVRAM();
+	RenderManager::RenderDebugInfo(visibleObjects.size() - 1, m_UsedVRAM);
+}
+
+void Scene::Destroy()
+{
+	for (Layer* layer : m_Layers)
+	{
+		if (layer == nullptr)
+			continue;
+
+		layer->Destroy();
+	}
 }
 
 void Scene::AddGameObject(GameObject* gameObj, const eLayerType type)
@@ -89,3 +103,4 @@ void Scene::OnExit()
 {
 
 }
+
