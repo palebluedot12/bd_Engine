@@ -16,11 +16,9 @@ void Chicken::Update()
 void Chicken::LateUpdate()
 {
 	GameObject::LateUpdate();
-
 }
 
 void Chicken::Render(ID2D1RenderTarget* pRenderTarget)
 {
 	GameObject::Render(pRenderTarget);
-
 }

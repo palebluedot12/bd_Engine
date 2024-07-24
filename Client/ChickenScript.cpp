@@ -9,10 +9,26 @@
 #include "..\\bdEngine\\Collider.h"
 
 ChickenScript::ChickenScript()
-	: m_State(ChickenScript::eState::SitDown)
+	: m_State(ChickenScript::State::SitDown)
 	, m_AttackTimer(0.0f)
 
 {
+    m_StateMachine.AddState(State::SitDown,
+        [this](State*) { EnterSitDown(); },
+        [this](State*) { UpdateSitDown(); },
+        [this](State*) { ExitSitDown(); });
+
+    m_StateMachine.AddState(State::Chase,
+        [this](State*) { EnterChase(); },
+        [this](State*) { UpdateChase(); },
+        [this](State*) { ExitChase(); });
+
+    m_StateMachine.AddState(State::Attack,
+        [this](State*) { EnterAttack(); },
+        [this](State*) { UpdateAttack(); },
+        [this](State*) { ExitAttack(); });
+
+    m_StateMachine.SetState(State::SitDown);
 }
 
 ChickenScript::~ChickenScript()
@@ -21,6 +37,7 @@ ChickenScript::~ChickenScript()
 
 void ChickenScript::Start()
 {
+    m_Animator = gameObject->GetComponent<Animator>();
     co = gameObject->AddComponent<BoxCollider2D>();
     co->size = { 25, 25 };
     m_Movement = gameObject->AddComponent<Movement>();
@@ -30,14 +47,6 @@ void ChickenScript::Start()
     {
         m_Player = m_PlayScene->GetPlayer();
     }
-}
-
-void ChickenScript::Initialize()
-{
-	if (m_PlayScene)
-	{
-		m_Player = m_PlayScene->GetPlayer();
-	}
 }
 
 void ChickenScript::Update()
@@ -51,19 +60,19 @@ void ChickenScript::Update()
     }
 
     UpdateState();
-
-    switch (m_State)
-    {
-        case eState::SitDown:
-            SitDown();
-            break;
-        case eState::Chase:
-            Chase();
-            break;
-        case eState::Attack:
-            Attack();
-            break;
-    }
+    m_StateMachine.Update();
+    //switch (m_State)
+    //{
+    //    case State::SitDown:
+    //        SitDown();
+    //        break;
+    //    case State::Chase:
+    //        Chase();
+    //        break;
+    //    case State::Attack:
+    //        Attack();
+    //        break;
+    //}
 
     
 }
@@ -74,31 +83,49 @@ void ChickenScript::UpdateState()
     Vector2 chickenPos = GetOwner()->GetComponent<Transform>()->GetPosition();
     float distance = (playerPos - chickenPos).Length();
 
+    State newState = m_StateMachine.GetCurrentState();
+
     if (distance > 300.0f)
     {
-        m_State = eState::SitDown;
+        newState = State::SitDown;
     }
     else if (distance > 10.0f && distance <= 300.0f)
     {
-        m_State = eState::Chase;
+        newState = State::Chase;
     }
     else if (distance <= 10.0f)
     {
-        m_State = eState::Attack;
+        newState = State::Attack;
     }
+
+    m_StateMachine.SetState(newState);
+
 }
 
-void ChickenScript::Chase()
+void ChickenScript::EnterSitDown()
+{
+    m_Animator->PlayAnimation(L"LeftSit", true);
+}
+
+void ChickenScript::UpdateSitDown()
+{
+    m_Movement->SetDirection(Vector2::Zero);
+}
+
+void ChickenScript::ExitSitDown()
+{
+}
+
+void ChickenScript::EnterChase()
+{
+}
+
+void ChickenScript::UpdateChase()
 {
     Vector2 playerPos = m_Player->GetComponent<Transform>()->GetPosition();
     Vector2 chickenPos = GetOwner()->GetComponent<Transform>()->GetPosition();
     Vector2 direction = (playerPos - chickenPos).Normalized();
 
-    //Transform* tr = GetOwner()->GetComponent<Transform>();
-    //Vector2 newPos = chickenPos + direction * 70.0f * Time::DeltaTime();
-    //tr->SetPosition(newPos);
-
-    // TODO : 와리가리 버그 => Attack하면서 움직이면 안됨
     m_Movement->SetDirection(direction);
 
     if (direction.x > 0)
@@ -111,28 +138,38 @@ void ChickenScript::Chase()
     }
 }
 
-void ChickenScript::Attack()
+void ChickenScript::ExitChase()
 {
-     m_Animator->PlayAnimation(L"Attack", true);  
 }
 
-void ChickenScript::LateUpdate()
+void ChickenScript::EnterAttack()
 {
+    m_Animator->PlayAnimation(L"Attack", false);
+
+    //// Use animation event to prevent interruption
+    //m_Animator->GetCompleteEvent(L"Attack") = [this]()
+    //    {
+    //        m_AttackTimer = 1.0f; // Set a cooldown timer
+    //    };
+
+    m_Animator->GetCompleteEvent(L"Attack") = &ChickenScript::OnAttackAnimationComplete;
 
 }
 
-void ChickenScript::Render(ID2D1RenderTarget* pRenderTarget)
+void ChickenScript::OnAttackAnimationComplete()
 {
-
+    // 공격 애니메이션이 끝났을 때 실행될 로직
+    //m_StateMachine.SetState(State::Chase); 
 }
 
-void ChickenScript::SitDown()
+
+void ChickenScript::UpdateAttack()
 {
-    m_Animator->PlayAnimation(L"LeftSit", true);
     m_Movement->SetDirection(Vector2::Zero);
+
+    // 공격 중 추가 로직
 }
 
-void ChickenScript::Move()
+void ChickenScript::ExitAttack()
 {
-	
 }

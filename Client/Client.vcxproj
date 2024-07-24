@@ -140,6 +140,7 @@
     <ClInclude Include="Chicken.h" />
     <ClInclude Include="ChickenScript.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="FSM.h" />
     <ClInclude Include="LoadResources.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="Player.h" />

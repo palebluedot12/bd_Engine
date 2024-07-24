@@ -111,7 +111,9 @@ void CatScript::Render(ID2D1RenderTarget* pRenderTarget)
 void CatScript::SitDown()
 {
     m_Animator->PlayAnimation(L"LeftSit", true);
-    m_Movement->SetDirection(Vector2::Zero);
+
+    if (m_Movement)
+        m_Movement->SetDirection(Vector2::Zero);
 }
 
 void CatScript::Move()
