@@ -25,8 +25,8 @@ public:
 
 	//void Initialize() override;
 	void Update() override;
-	void LateUpdate() override;
-	void Render(ID2D1RenderTarget* pRenderTarget) override;
+	//void LateUpdate() override;
+	//void Render(ID2D1RenderTarget* pRenderTarget) override;
 	void Start();
 
 	void SetCamera(Camera* camera) { m_Camera = camera; }
@@ -56,7 +56,7 @@ private:
 	Player* m_Player;
 	float m_AttackTimer;
 	Movement* m_Movement;
-	FSM<State> m_StateMachine;
+	FSM<ChickenScript, State> m_StateMachine;
 
 public:
 	BoxCollider2D* co;

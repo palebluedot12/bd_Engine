@@ -7,26 +7,28 @@
 #include "PlayScene.h"
 #include "..\\bdEngine\\BoxCollider2D.h"
 #include "..\\bdEngine\\Collider.h"
+#include <functional>
 
 ChickenScript::ChickenScript()
 	: m_State(ChickenScript::State::SitDown)
 	, m_AttackTimer(0.0f)
 
 {
+    m_StateMachine.SetOwner(this);
     m_StateMachine.AddState(State::SitDown,
-        [this](State*) { EnterSitDown(); },
-        [this](State*) { UpdateSitDown(); },
-        [this](State*) { ExitSitDown(); });
+        &ChickenScript::EnterSitDown,
+        &ChickenScript::UpdateSitDown,
+        &ChickenScript::ExitSitDown);
 
     m_StateMachine.AddState(State::Chase,
-        [this](State*) { EnterChase(); },
-        [this](State*) { UpdateChase(); },
-        [this](State*) { ExitChase(); });
+        &ChickenScript::EnterChase,
+        &ChickenScript::UpdateChase,
+        &ChickenScript::ExitChase);
 
     m_StateMachine.AddState(State::Attack,
-        [this](State*) { EnterAttack(); },
-        [this](State*) { UpdateAttack(); },
-        [this](State*) { ExitAttack(); });
+        &ChickenScript::EnterAttack,
+        &ChickenScript::UpdateAttack,
+        &ChickenScript::ExitAttack);
 
     m_StateMachine.SetState(State::SitDown);
 }
@@ -60,21 +62,7 @@ void ChickenScript::Update()
     }
 
     UpdateState();
-    m_StateMachine.Update();
-    //switch (m_State)
-    //{
-    //    case State::SitDown:
-    //        SitDown();
-    //        break;
-    //    case State::Chase:
-    //        Chase();
-    //        break;
-    //    case State::Attack:
-    //        Attack();
-    //        break;
-    //}
-
-    
+    m_StateMachine.Update(); 
 }
 
 void ChickenScript::UpdateState()
@@ -118,6 +106,20 @@ void ChickenScript::ExitSitDown()
 
 void ChickenScript::EnterChase()
 {
+    //Vector2 playerPos = m_Player->GetComponent<Transform>()->GetPosition();
+    //Vector2 chickenPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+    //Vector2 direction = (playerPos - chickenPos).Normalized();
+
+    //m_Movement->SetDirection(direction);
+
+    //if (direction.x > 0)
+    //{
+    //    m_Animator->PlayAnimation(L"RightWalk", true);
+    //}
+    //else
+    //{
+    //    m_Animator->PlayAnimation(L"LeftWalk", true);
+    //}
 }
 
 void ChickenScript::UpdateChase()
@@ -130,12 +132,13 @@ void ChickenScript::UpdateChase()
 
     if (direction.x > 0)
     {
-        m_Animator->PlayAnimation(L"RightWalk", true);
+        m_Animator->PlayAnimation(L"RightWalk", false);
     }
     else
     {
-        m_Animator->PlayAnimation(L"LeftWalk", true);
+        m_Animator->PlayAnimation(L"LeftWalk", false);
     }
+
 }
 
 void ChickenScript::ExitChase()
@@ -152,7 +155,7 @@ void ChickenScript::EnterAttack()
     //        m_AttackTimer = 1.0f; // Set a cooldown timer
     //    };
 
-    m_Animator->GetCompleteEvent(L"Attack") = &ChickenScript::OnAttackAnimationComplete;
+    m_Animator->GetCompleteEvent(L"Attack") = std::bind(&ChickenScript::OnAttackAnimationComplete, this);
 
 }
 
