@@ -58,6 +58,13 @@ public:
 
 	bool IsComplete() { return m_ActiveAnimation->IsComplete(); }
 
+	const std::wstring& GetActiveAnimationName() const
+	{
+		if (m_ActiveAnimation)
+			return m_ActiveAnimation->GetName();
+		return L"";
+	}
+
 private:
 	std::map<std::wstring, Animation*> m_Animations;
 	Animation* m_ActiveAnimation;

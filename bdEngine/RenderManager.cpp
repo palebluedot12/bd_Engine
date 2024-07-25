@@ -199,7 +199,7 @@ void RenderManager::RenderDebugInfo(size_t visibleObjectCount, int vram)
 {
 	// VRAM 정보를 가져오는 코드...
 	wchar_t debugText[256];
-	swprintf_s(debugText, L"Visible Objects: %zu\nVRAM Usage : %d\n엔터를 눌러 고냥이 생성,\n백스페이스로 삭제",
+	swprintf_s(debugText, L"Visible Objects: %zu\nVRAM Usage : %d",
 		visibleObjectCount, vram);
 
 	ID2D1SolidColorBrush* pBrush;

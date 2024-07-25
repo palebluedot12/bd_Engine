@@ -106,37 +106,27 @@ void ChickenScript::ExitSitDown()
 
 void ChickenScript::EnterChase()
 {
-    //Vector2 playerPos = m_Player->GetComponent<Transform>()->GetPosition();
-    //Vector2 chickenPos = GetOwner()->GetComponent<Transform>()->GetPosition();
-    //Vector2 direction = (playerPos - chickenPos).Normalized();
-
-    //m_Movement->SetDirection(direction);
-
-    //if (direction.x > 0)
-    //{
-    //    m_Animator->PlayAnimation(L"RightWalk", true);
-    //}
-    //else
-    //{
-    //    m_Animator->PlayAnimation(L"LeftWalk", true);
-    //}
 }
 
 void ChickenScript::UpdateChase()
 {
     Vector2 playerPos = m_Player->GetComponent<Transform>()->GetPosition();
     Vector2 chickenPos = GetOwner()->GetComponent<Transform>()->GetPosition();
-    Vector2 direction = (playerPos - chickenPos).Normalized();
+    direction = (playerPos - chickenPos).Normalized();
 
     m_Movement->SetDirection(direction);
 
+    const std::wstring& currentAnim = m_Animator->GetActiveAnimationName();
     if (direction.x > 0)
     {
-        m_Animator->PlayAnimation(L"RightWalk", false);
+        // 같은 애니메이션의 첫번째 인덱스가 계속해서 실행 안되게끔, 실행하고자 하는 애니메이션이 현재 실행중이지 않을 때만
+        if (currentAnim != L"RightWalk")
+            m_Animator->PlayAnimation(L"RightWalk", true);
     }
     else
     {
-        m_Animator->PlayAnimation(L"LeftWalk", false);
+        if (currentAnim != L"LeftWalk")
+            m_Animator->PlayAnimation(L"LeftWalk", true);
     }
 
 }
@@ -147,14 +137,7 @@ void ChickenScript::ExitChase()
 
 void ChickenScript::EnterAttack()
 {
-    m_Animator->PlayAnimation(L"Attack", false);
-
-    //// Use animation event to prevent interruption
-    //m_Animator->GetCompleteEvent(L"Attack") = [this]()
-    //    {
-    //        m_AttackTimer = 1.0f; // Set a cooldown timer
-    //    };
-
+    m_Animator->PlayAnimation(L"Attack", true);
     m_Animator->GetCompleteEvent(L"Attack") = std::bind(&ChickenScript::OnAttackAnimationComplete, this);
 
 }
@@ -162,14 +145,12 @@ void ChickenScript::EnterAttack()
 void ChickenScript::OnAttackAnimationComplete()
 {
     // 공격 애니메이션이 끝났을 때 실행될 로직
-    //m_StateMachine.SetState(State::Chase); 
 }
 
 
 void ChickenScript::UpdateAttack()
 {
     m_Movement->SetDirection(Vector2::Zero);
-
     // 공격 중 추가 로직
 }
 

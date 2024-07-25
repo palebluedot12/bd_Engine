@@ -57,6 +57,7 @@ private:
 	float m_AttackTimer;
 	Movement* m_Movement;
 	FSM<ChickenScript, State> m_StateMachine;
+	Vector2 direction;
 
 public:
 	BoxCollider2D* co;

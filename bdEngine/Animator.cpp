@@ -136,6 +136,7 @@ void Animator::PlayAnimation(const std::wstring& name, bool loop)
 	if (animation == nullptr)
 		return;
 
+	// 현재 애니메이션이 있으면 -> 애니메이션이 변경될 때 이전 애니메이션의 endEvent와 새 애니메이션의 startEvent 실행
 	if (m_ActiveAnimation)
 	{
 		Events* currentEvents

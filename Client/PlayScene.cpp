@@ -74,7 +74,7 @@ void PlayScene::Initialize()
 
 	//´ß
 	{
-		Chicken* chicken = Instantiate<Chicken>(eLayerType::Player, Vector2(200.0f, 50.0f));
+		Chicken* chicken = Instantiate<Chicken>(eLayerType::Player, Vector2(1300.0f, 300.0f));
 		ChickenScript* chickenScript = chicken->AddComponent<ChickenScript>();
 		chickenScript->SetPlayScene(this);
 		Texture* ckTex = ResourceManager::Find<Texture>(L"Chicken");
