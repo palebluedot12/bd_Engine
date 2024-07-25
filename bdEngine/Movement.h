@@ -14,6 +14,7 @@ public:
     void SetSpeed(float speed) { m_Speed = speed; }
 
     Vector2 GetVelocity() const { return m_Direction * m_Speed; }
+    float GetSpeed() { return m_Speed; }
 
 private:
     Vector2 m_Direction;
