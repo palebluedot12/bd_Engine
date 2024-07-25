@@ -14,10 +14,6 @@ void ChickenAttackState::Update(ChickenScript* chicken)
 	Vector2 chickenPos = chicken->GetOwner()->GetComponent<Transform>()->GetPosition();
 	float distance = (playerPos - chickenPos).Length();
 
-	if (distance >= 50.0f)
-	{
-		SetState(chicken, ChickenScript::State::Chase);
-	}
 }
 
 void ChickenAttackState::Exit(ChickenScript* chicken)

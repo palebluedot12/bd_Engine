@@ -55,6 +55,9 @@ private:
 	FSM<ChickenScript, State> m_StateMachine;
 
 
+	ChickenState* m_CurrentState;
+	std::map<State, std::unique_ptr<ChickenState>> m_States;
+
 public:
 	BoxCollider2D* co;
 	Transform* tr;
