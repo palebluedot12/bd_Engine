@@ -138,13 +138,20 @@
   <ItemGroup>
     <ClInclude Include="CatScript.h" />
     <ClInclude Include="Chicken.h" />
+    <ClInclude Include="ChickenAttackState.h" />
+    <ClInclude Include="ChickenChaseState.h" />
     <ClInclude Include="ChickenScript.h" />
+    <ClInclude Include="ChickenSitDownState.h" />
+    <ClInclude Include="ChickenState.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FSM.h" />
     <ClInclude Include="LoadResources.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerScript.h" />
+    <ClInclude Include="PlayerSitDownState.h" />
+    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="PlayerWalkState.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Client.h" />
@@ -154,10 +161,17 @@
   <ItemGroup>
     <ClCompile Include="CatScript.cpp" />
     <ClCompile Include="Chicken.cpp" />
+    <ClCompile Include="ChickenAttackState.cpp" />
+    <ClCompile Include="ChickenChaseState.cpp" />
     <ClCompile Include="ChickenScript.cpp" />
+    <ClCompile Include="ChickenSitDownState.cpp" />
+    <ClCompile Include="ChickenState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerScript.cpp" />
+    <ClCompile Include="PlayerSitDownState.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="PlayerWalkState.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>

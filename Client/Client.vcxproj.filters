@@ -16,6 +16,12 @@
     <Filter Include="99. Andromeda">
       <UniqueIdentifier>{21fdceb4-d4ce-4f8b-bae9-f9ee4844b3b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. FSM\01. Chicken">
+      <UniqueIdentifier>{cfba7e22-ddd0-481e-999f-60011a342ea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. FSM\02. Player">
+      <UniqueIdentifier>{e18c1b36-914a-47c9-907a-34faeac3fc2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h">
@@ -58,6 +64,27 @@
     <ClInclude Include="FSM.h">
       <Filter>04. FSM</Filter>
     </ClInclude>
+    <ClInclude Include="ChickenAttackState.h">
+      <Filter>04. FSM\01. Chicken</Filter>
+    </ClInclude>
+    <ClInclude Include="ChickenChaseState.h">
+      <Filter>04. FSM\01. Chicken</Filter>
+    </ClInclude>
+    <ClInclude Include="ChickenSitDownState.h">
+      <Filter>04. FSM\01. Chicken</Filter>
+    </ClInclude>
+    <ClInclude Include="ChickenState.h">
+      <Filter>04. FSM\01. Chicken</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>04. FSM\02. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSitDownState.h">
+      <Filter>04. FSM\02. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWalkState.h">
+      <Filter>04. FSM\02. Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -89,6 +116,27 @@
     </ClCompile>
     <ClCompile Include="CatScript.cpp">
       <Filter>03. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="ChickenAttackState.cpp">
+      <Filter>04. FSM\01. Chicken</Filter>
+    </ClCompile>
+    <ClCompile Include="ChickenChaseState.cpp">
+      <Filter>04. FSM\01. Chicken</Filter>
+    </ClCompile>
+    <ClCompile Include="ChickenSitDownState.cpp">
+      <Filter>04. FSM\01. Chicken</Filter>
+    </ClCompile>
+    <ClCompile Include="ChickenState.cpp">
+      <Filter>04. FSM\01. Chicken</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>04. FSM\02. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSitDownState.cpp">
+      <Filter>04. FSM\02. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerWalkState.cpp">
+      <Filter>04. FSM\02. Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
